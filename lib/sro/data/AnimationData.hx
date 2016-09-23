@@ -1,4 +1,4 @@
-package lib.sro.core;
+package lib.sro.data;
 
 import openfl.display.Bitmap;
 
@@ -6,7 +6,7 @@ import openfl.display.Bitmap;
  * ...
  * @author Sebastien roelandt
  */
-class FrameData
+class AnimationData
 {
 	private var name:String;
 

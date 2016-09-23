@@ -1,6 +1,7 @@
 package lib.sro.core;
 
 import lib.sro.core.ResourcesStorage;
+import lib.sro.data.StatedAnimationData;
 import openfl.display.Bitmap;
 
 /**
@@ -12,7 +13,7 @@ class ResourcesStorage
 	///Instance
 	private static var instance:ResourcesStorage;
 		
-	private static var spritesheets:Map<String,Spritesheet>;
+	private static var statedAnimationDatas:Map<String,StatedAnimationData>;
 	
 	public static function getInstance():ResourcesStorage {
 		if (instance == null) {
@@ -22,14 +23,14 @@ class ResourcesStorage
 	}
 	
 	private function new() {
-		spritesheets = new Map();
+		statedAnimationDatas = new Map();
 	}
 	
-	public function getSpritesheet(name:String):Spritesheet {
-		return spritesheets.get(name);
+	public function getStatedAnimationData(name:String):StatedAnimationData {
+		return statedAnimationDatas.get(name);
 	}
 	
-	public function addSpritesheet(name:String, spritesheet:Spritesheet) {
-		return spritesheets.set(name, spritesheet);
+	public function addStatedAnimationData(name:String, spritesheet:StatedAnimationData) {
+		return statedAnimationDatas.set(name, spritesheet);
 	}
 }

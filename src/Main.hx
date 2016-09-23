@@ -2,6 +2,7 @@ package;
 
 import ld.core.Manager;
 import lib.sro.ui.AnimatedSprite;
+import lib.sro.effect.TransparencyEffect;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
@@ -30,7 +31,7 @@ class Main extends Sprite
 		lastTime = 0;
 		//Init root
 		Manager.init();
-		animatedSprite = new AnimatedSprite(Manager.assets.getSpritesheet("fish"));
+		animatedSprite = new AnimatedSprite(Manager.assets.getStatedAnimationData("fish"));
 		addChild(animatedSprite);
 		
 		this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -47,8 +48,9 @@ class Main extends Sprite
 	}
 	
 	public function onClick(e:Event) {
-		animatedSprite.changeFrameData("transform_right");
+		animatedSprite.change("transform_right");
 		animatedSprite.addToQueue("move_right");
+		new TransparencyEffect(animatedSprite);
 	}
 	
 	public function new() 
