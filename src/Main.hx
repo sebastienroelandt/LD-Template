@@ -1,8 +1,11 @@
 package;
 
 import ld.core.Manager;
+import lib.sro.core.Bezier;
 import lib.sro.ui.AnimatedSprite;
+import lib.sro.effect.RotationEffect;
 import lib.sro.effect.TransparencyEffect;
+import lib.sro.effect.Effect;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.display.Sprite;
@@ -32,6 +35,8 @@ class Main extends Sprite
 		//Init root
 		Manager.init();
 		animatedSprite = new AnimatedSprite(Manager.assets.getStatedAnimationData("fish"));
+		animatedSprite.x = 100;
+		animatedSprite.y = 100;
 		addChild(animatedSprite);
 		
 		this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -50,7 +55,9 @@ class Main extends Sprite
 	public function onClick(e:Event) {
 		animatedSprite.change("transform_right");
 		animatedSprite.addToQueue("move_right");
-		new TransparencyEffect(animatedSprite);
+		var e:Effect = new RotationEffect(animatedSprite, 1000, BezierType.Zigzag);
+		new TransparencyEffect(animatedSprite, 1000, BezierType.In);
+		e.setLoop(true);
 	}
 	
 	public function new() 

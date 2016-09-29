@@ -12,7 +12,7 @@ import openfl.geom.Point;
 class ResourcesLoader
 {
 	public static function split(source:BitmapData, startX:Int, startY:Int, 
-		width:Int, height:Int, ?repeatX = 1, ?repeatY = 1):Array<Bitmap> {
+		width:Int, height:Int, ?repeatX = 1, ?repeatY = 1) : Array<Bitmap> {
 			
 		var destination = new Array<Bitmap>();
 		for (y in 0...repeatY){
