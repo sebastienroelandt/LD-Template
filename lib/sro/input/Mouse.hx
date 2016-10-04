@@ -19,6 +19,8 @@ class Mouse
 		down = false;
 		click = false;
 		previousClick = false;
+		x = 0;
+		y = 0;
 	}
 	
 	//Update

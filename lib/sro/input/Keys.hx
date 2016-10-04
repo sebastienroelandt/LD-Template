@@ -8,13 +8,11 @@ import openfl.events.KeyboardEvent;
  */
 class Keys
 {
-	static var downCodes = new Map< Int, Bool >();
-	static var upCodes =  new Map< Int, Bool >();
-	static var isEspaced =  new Map< Int, Bool >();
+	public static var downCodes	= new Map< Int, Bool >();
+	public static var click		=  new Map< Int, Bool >();
 
 	public static function init() {
 		downCodes = new Map();
-		upCodes = new Map();
 	}
 	
 	//Update
@@ -27,13 +25,27 @@ class Keys
 	}
 	
 	public static function onKey( code:Int, down:Bool ) {
-		if ( down ) {
+		if (down) {
+			if (!downCodes.exists(code)) {
+				click.set(code, false);
+			}
 			downCodes.set(code, true);
-			upCodes.set(code, false);
-		} else {
-			upCodes.set(code, true);
-			isEspaced.set(code,true);
-			downCodes.set(code, false);
+		}else {
+			downCodes.remove(code);
+		}
+	}
+	
+	public static function reset() {
+		var toClean = new List<Int>();
+		for (i in click.keys()) {
+			if (click.get(i)) {
+				toClean.add(i);
+			} else {
+				click.set(i, true);
+			}
+		}
+		for (i in toClean) {
+			click.remove(i);
 		}
 	}
 	
@@ -43,14 +55,10 @@ class Keys
 	}
 	
 	public static function isUp(k:Int) {
-		return upCodes.get(k);
+		return !isDown(k);
 	}
 	
 	public static function isClick(k:Int) {
-		if (downCodes.get(k) && isEspaced.get(k)){
-			isEspaced.set(k, false);
-			return true;
-		}
-		return false;
+		return click.exists(k) && click.get(k);
 	}
 }
