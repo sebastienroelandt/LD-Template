@@ -1,49 +1,74 @@
 package lib.sro.screen;
+
+import openfl.display.Sprite;
 import openfl.display.Stage;
+import lib.sro.layers.DebugLayer;
+import openfl.Lib;
+import openfl.events.Event;
 
 /**
  * ...
  * @author Sebastien roelandt
  */
-class ScreenController
+class ScreenController extends Sprite
 {
-	public var debugLayer:lib.sro.layers.DebugLayer;
+	public static var ME:ScreenController;
+	
+	public var debugLayer:DebugLayer;
 
-	private var stage:Stage;
 	private var currentScreen:Screen;
 	private var nextScreens:Array<Screen>;
 	
+	private var lastTime:Float;
+	
 	public function new() 
 	{
-		stage = null;
+		super();
+		if (ME != null) {
+			throw "ScreenController must be initiate only one time.";
+		}
 		currentScreen = null;
 		nextScreens = new Array<Screen>();
+		debugLayer = new DebugLayer();
+				
+		ME = this;
+		lastTime = Lib.getTimer();
 	}
 	
-	public function init(stage:Stage):ScreenController {
-		this.stage = stage;
-		
-		while (nextScreens.length > 0) {
-			nextScreens.pop();
-		}
-		
-		stage.addEventListener(Event.RESIZE, onStageResize);
-		stage.addEventListener(KeyBoardEvent.KEY_DOWN, onKeyDown);
+	public function start():ScreenController{
+		this.addEventListener(Event.RESIZE, onStageResize);
 		
 		return this;
 	}
 	
-	///Screen Control
-	
 	public function addScreen(screen:Screen) {
 		if (screen != null) {
-			nextScreens.push(screen);
+			if (currentScreen == null) {
+				currentScreen = screen;
+				loadCurrentScreen();
+			} else {
+				nextScreens.push(screen);
+			}
+		}
+	}
+	
+	private function deletePreviousScreen() {
+		if (currentScreen != null) {
+			this.removeChild(currentScreen);
+		}
+	}
+	
+	private function loadCurrentScreen() {
+		if (currentScreen != null) {
+			this.addChild(currentScreen);
 		}
 	}
 	
 	public function nextScreen() {
 		if (nextScreens.length > 0) {
-			
+			deletePreviousScreen();
+			currentScreen = nextScreens.shift();
+			loadCurrentScreen();
 		}
 	}
 	
@@ -51,22 +76,24 @@ class ScreenController
 		return currentScreen;
 	}
 	
-	///Event control
-	private function onKeyAction(event:KeyboardEvent)
-	{
-		if (activeScreen == null)
-			return;
-			
-		activeScreen.handleKeyAction(event);
-	}
-	
-	private function onStageResize(e)
-	{
-		updateScreenSize();
-	}
-	
+	///Update
 	public function updateScreenSize() {
 		//To do
 	}
 	
+	public function update() {	
+		if (currentScreen != null) {
+			var delta = Lib.getTimer() - lastTime;
+		
+			currentScreen.updateAll(delta);
+			debugLayer.updateAll(delta);
+			
+			lastTime = Lib.getTimer();
+		}
+	}
+	
+	//Event Control
+	private function onStageResize(e){
+		updateScreenSize();
+	}
 }

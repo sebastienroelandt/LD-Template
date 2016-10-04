@@ -1,16 +1,17 @@
 package lib.sro.layers;
+import lib.sro.ui.BasicUI;
 import openfl.display.Sprite;
 
 /**
  * ...
  * @author Sebastien roelandt
  */
-class ZoomLayer extends Sprite
+class ZoomLayer extends BasicUI
 {
 
 	public function new() 
 	{
-		
+		super();
 	}
 	
 }

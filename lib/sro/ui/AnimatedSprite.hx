@@ -10,19 +10,17 @@ import openfl.display.Sprite;
  * ...
  * @author Sebastien roelandt
  */
-class AnimatedSprite extends Sprite
+class AnimatedSprite extends BasicUI
 {
 	private var statedAnimationData:StatedAnimationData;
 	private var currentAnimationData:AnimationData;
 	private var animationDataQueue:Array<AnimationData>;
 	private var bitmap:Bitmap;
 	private var animationFinish:Bool;
-	private var timeElapsed:Int;
-	private var pause:Bool;
+	private var timeElapsed:Float;
 	
-	public function new(statedAnimationData:StatedAnimationData) {
-		super();
-		pause = false;
+	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null) {
+		super(parent);
 		animationFinish = false;
 		timeElapsed = 0;
 		currentAnimationData = statedAnimationData.getDefaultAnimationData();
@@ -48,7 +46,7 @@ class AnimatedSprite extends Sprite
 		}
 	}
 	
-	public function update(delta:Int) {
+	public override function update(delta:Float) {
 		if (!animationFinish) {
 			timeElapsed += delta;
 			var loopTime = currentAnimationData.getLoopTime();

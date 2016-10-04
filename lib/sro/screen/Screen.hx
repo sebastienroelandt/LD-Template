@@ -1,21 +1,15 @@
 package lib.sro.screen;
+
 import openfl.display.Sprite;
+import lib.sro.ui.BasicUI;
 
 /**
  * ...
  * @author Sebastien roelandt
  */
-class Screen extends Sprite
+class Screen extends BasicUI
 {
-	public var zoomLayer:lib.sro.layers.ZoomLayer;
-	public var layers:Map<String, lib.sro.layers.DrawableLayer>;
-
-	private var screenController:ScreenController;
-	
-	public function new(screenController:ScreenController) {
-		this.screenController = screenController;
+	public function new() {
+		super();
 	}
-	
-	
-	
 }
