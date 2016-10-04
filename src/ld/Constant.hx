@@ -1,10 +1,12 @@
 package ld;
 
+import lib.sro.DefaultConstant;
+
 /**
  * ...
  * @author Sebastien roelandt
  */
-class Constant
+class Constant extends DefaultConstant
 {
 	//SIGNAL
 	static public var HERO_WAS_DEAD_SIGNAL = "hero_was_dead";

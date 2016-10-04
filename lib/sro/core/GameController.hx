@@ -6,6 +6,7 @@ import lib.sro.input.*;
 import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
 import openfl.events.Event;
+import openfl.Lib;
 
 /**
  * ...
@@ -13,7 +14,7 @@ import openfl.events.Event;
  */
 class GameController extends ScreenController
 {
-	public var assets:ResourcesStorage;
+	public static var assets:ResourcesStorage;
 
 	public function new() 
 	{
@@ -26,12 +27,12 @@ class GameController extends ScreenController
 	public override function start():GameController {		
 		super.start();
 		
-		this.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-		this.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-		this.addEventListener(MouseEvent.MOUSE_UP, onMouseKeyUp);
-		this.addEventListener(MouseEvent.MOUSE_DOWN, onMouseKeyDown);
-		this.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-		this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+		Lib.current.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseKeyUp);
+		Lib.current.stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseKeyDown);
+		Lib.current.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+		Lib.current.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		
 		return this;
 	}
@@ -41,6 +42,7 @@ class GameController extends ScreenController
 	{
 		super.update();
 		Mouse.reset();
+		Keys.reset();
 	}
 	
 	///Event control

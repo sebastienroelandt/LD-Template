@@ -17,9 +17,11 @@ class GameManager extends GameController
 	
 	public function new()
 	{
-		super();
-		assets = ResourcesStorage.getInstance();
+		var assets = ResourcesStorage.getInstance();
 		MyResourcesLoader.load(assets);
+		GameController.assets = assets;
+		
+		super();
 		
 		i = 10;
 		this.addScreen(initScreen1());
@@ -41,11 +43,13 @@ class GameManager extends GameController
 	
 	public function initScreen1():Screen {
 		var screen1 = new Screen();
-		var animatedSprite = new AnimatedSprite(this.assets.getStatedAnimationData("fish")); 
+		var layer = new DrawableLayer();
+		var animatedSprite = new AnimatedSprite(GameController.assets.getStatedAnimationData("fish")); 
 		animatedSprite.x = i; 
 		animatedSprite.y = i; 
 		i += 10;
-		screen1.add(animatedSprite);
+		layer.add(animatedSprite);
+		screen1.add(layer);
 		return screen1;
 	}
 	

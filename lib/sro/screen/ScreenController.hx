@@ -30,7 +30,9 @@ class ScreenController extends Sprite
 		currentScreen = null;
 		nextScreens = new Array<Screen>();
 		debugLayer = new DebugLayer();
-				
+		
+		this.addChild(debugLayer);
+		
 		ME = this;
 		lastTime = Lib.getTimer();
 	}

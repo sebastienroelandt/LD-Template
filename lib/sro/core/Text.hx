@@ -2,6 +2,7 @@ package lib.sro.core;
 
 import openfl.text.TextField;
 import openfl.text.TextFormat;
+import openfl.text.TextFormatAlign;
 import openfl.Assets;
 /**
  * ...
@@ -9,27 +10,38 @@ import openfl.Assets;
  */
 class Text
 {
-	public static function createText(fontId:String, ?size:Int = 14, ?color:int = 0xFFFFFF, 
-		?align:String = TextFormatAlign.LEFT, ?bold:Bool = false) : TextField 
+	public static function createText(?fontId:String, ?size:Int = 14, ?color:Int = 0xFFFFFF, 
+		?align:TextFormatAlign, ?bold:Bool = false) : TextField 
 	{
 		var textField:TextField = new TextField();
 		
-		var textFormat = textFormat.defaultTextFormat;
-		var font = Assets.getFont(fontId);
-		format.font = font.fontName;
-		format.size = size;
-		format.color = color;
-		format.align = align;
-		format.blod = bold;
+		if (align == null) {
+			align = TextFormatAlign.LEFT;
+		}
+		var textFormat = textField.defaultTextFormat;
+		if (fontId != null) {
+			var font = Assets.getFont(fontId);
+			textFormat.font = font.fontName;
+		}
+		textFormat.size = size;
+		textFormat.color = color;
+		textFormat.align = align;
+		textFormat.bold = bold;
 		
 		textField.defaultTextFormat = textFormat;
 		textField.setTextFormat(textFormat);
-		textField.embedFonts = true;
+		if (fontId != null) {
+			textField.embedFonts = true;
+		}
 		textField.mouseEnabled = false;
 		textField.selectable = false;
 		textField.wordWrap = true;
 		
-		return textFormat;
+		textField.x = 10;
+		textField.y = 10;
+		textField.width = 500;
+		
+		return textField;
 	}
 	
 }
