@@ -63,6 +63,7 @@ class ScreenController extends Sprite
 	private function loadCurrentScreen() {
 		if (currentScreen != null) {
 			this.addChild(currentScreen);
+			resetDebugLayerPosition();
 		}
 	}
 	
@@ -76,6 +77,10 @@ class ScreenController extends Sprite
 	
 	public function getCurrentScreen():Screen {
 		return currentScreen;
+	}
+	
+	private function resetDebugLayerPosition() {
+		this.setChildIndex(debugLayer, this.numChildren - 1);
 	}
 	
 	///Update
