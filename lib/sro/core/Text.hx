@@ -10,7 +10,7 @@ import openfl.Assets;
  */
 class Text
 {
-	public static function createText(?fontId:String, ?size:Int = 14, ?color:Int = 0xFFFFFF, 
+	public static function createText(?fontId:String, ?size:Int = 16, ?color:Int = 0xFFFFFF, 
 		?align:TextFormatAlign, ?bold:Bool = false) : TextField 
 	{
 		var textField:TextField = new TextField();

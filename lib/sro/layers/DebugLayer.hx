@@ -28,7 +28,7 @@ class DebugLayer extends DrawableLayer
 	{
 		super();
 		
-		topLeftText = Text.createText();
+		topLeftText = Text.createText("fonts/AAAA.TTF");
 		topLeftText.width = 500;
 		
 		isDisplay = true;
@@ -49,15 +49,15 @@ class DebugLayer extends DrawableLayer
 			var screenController = ScreenController.ME;
 			var time = Lib.getTimer();
 			var diff = currentStage.frameRate / (time - lastTimer) * 1000;
-			output += "FPS   	: " + Math.round(diff * 10 / 10) + " 	/ " + currentStage.frameRate + "\n";
+			output += "FPS			: " + Math.round(diff * 10 / 10) + " 	/ " + currentStage.frameRate + "\n";
 			
 			output += "VERSION 	: LIB - v" + DefaultConstant.LIBVERSION + " || GAME - v" + DefaultConstant.GAMEVERSION + "\n";
 			
 			var point:Point = Mouse.getXY() ;
-			output += "MOUSE 	: X-" + point.x + " || Y-" + point.x + " || " + Mouse.isClick() + "\n";
+			output += "MOUSE 		: X-" + point.x + " || Y-" + point.x + " || " + Mouse.isClick() + "\n";
 			
 			output += "KEY 		: DOWN	- " + Keys.downCodes.toString() + "\n";
-			output += "    		  CLICK	- " + Keys.click.toString();
+			output += "			  CLICK	- " + Keys.click.toString();
 			
 			
 			topLeftText.text = output;
