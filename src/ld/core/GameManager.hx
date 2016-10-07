@@ -6,6 +6,8 @@ import lib.sro.core.GameController;
 import lib.sro.layers.DrawableLayer;
 import lib.sro.ui.AnimatedSprite;
 import lib.sro.input.Mouse;
+import lib.sro.ui.TextAnimation;
+import lib.sro.core.Text;
 
 /**
  * ...
@@ -49,6 +51,13 @@ class GameManager extends GameController
 		animatedSprite.y = i; 
 		i += 10;
 		layer.add(animatedSprite);
+		
+		var animatedText = new TextAnimation("Hello World !", Text.createText("fonts/AAAA.TTF"));
+		animatedText.start();
+		animatedText.x = 10;
+		animatedText.y = 300;
+		layer.add(animatedText);
+		
 		screen1.add(layer);
 		return screen1;
 	}
