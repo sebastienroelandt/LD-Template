@@ -1,5 +1,6 @@
 package lib.sro.input;
 
+import haxe.Log;
 import openfl.events.KeyboardEvent;
 
 /**
@@ -17,7 +18,10 @@ class Keys
 	
 	//Update
 	public static function setKeyDown(e:KeyboardEvent) {
-		onKey(e.keyCode, true);
+		if (!downCodes.exists(e.keyCode)) {
+			Log.trace(e.keyCode);
+			onKey(e.keyCode, true);
+		}
 	}
 	
 	public static function setKeyUp(e:KeyboardEvent) {
