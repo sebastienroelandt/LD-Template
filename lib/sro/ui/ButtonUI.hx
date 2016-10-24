@@ -30,7 +30,7 @@ class ButtonUI extends BasicUI
 	private var currentBitmap:Bitmap;
 	private var currentState:ButtonState;
 	
-	public function new(defaultBitmap:Bitmap, ?hoverBitmap:Bitmap, ?pressBitmap:Bitmap) 
+	public function new(x:Float, y:Float, defaultBitmap:Bitmap, ?hoverBitmap:Bitmap, ?pressBitmap:Bitmap) 
 	{
 		super();
 		this.defaultBitmapData = defaultBitmap.bitmapData;
@@ -40,8 +40,8 @@ class ButtonUI extends BasicUI
 		this.currentState = ButtonState.Default;
 		this.currentBitmap = new Bitmap();
 		this.currentBitmap.bitmapData = defaultBitmap.bitmapData;
-		this.currentBitmap.x = 150;
-		this.currentBitmap.y = 100;
+		this.currentBitmap.x = x;
+		this.currentBitmap.y = y;
 		this.addChild(this.currentBitmap);
 	}
 	
@@ -91,7 +91,6 @@ class ButtonUI extends BasicUI
 	}
 		
 	public function onClick() {
-		trace("aa");
 		//onClick Event
 	}
 	

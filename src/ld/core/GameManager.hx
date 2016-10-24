@@ -59,7 +59,7 @@ class GameManager extends GameController
 		animatedText.y = 300;
 		layer.add(animatedText);
 		
-		var button = new ButtonUI(GameController.assets.getBitmap("defaultButton"),
+		var button = new ButtonUI(150, 100, GameController.assets.getBitmap("defaultButton"),
 			GameController.assets.getBitmap("hoverButton"),
 			GameController.assets.getBitmap("clickButton"));
 		layer.add(button);
