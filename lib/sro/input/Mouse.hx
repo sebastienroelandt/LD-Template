@@ -12,6 +12,8 @@ class Mouse
 	static var down:Bool;
 	static var click:Bool;
 	static var previousClick:Bool;
+	static var scrollUp:Bool;
+	static var scrollDown:Bool;
 	static var x:Float;
 	static var y:Float;
 
@@ -40,6 +42,18 @@ class Mouse
 		y = e.stageY;
 	}
 	
+	public static function onScroll(e:MouseEvent) {
+		if (e.delta > 0) {
+			scrollUp = true;
+		} else if (e.delta < 0) {
+			scrollDown = true;
+		}
+		
+		if (scrollUp && scrollDown) {
+			scrollUp = scrollDown = false;
+		}
+	}
+	
 	public static function reset() {
 		previousClick = false;
 		if (click) {
@@ -49,11 +63,11 @@ class Mouse
 	}
 	
 	//Listen methods
-	public static function isDown() {
+	public static function isDown():Bool {
 		return down;
 	}
 	
-	public static function isClick() {
+	public static function isClick():Bool {
 		return previousClick;
 	}
 	
@@ -61,4 +75,11 @@ class Mouse
 		return new Point(x,y);
 	}
 	
+	public static function isScrollUp():Bool {
+		return isScrollUp;
+	}
+	
+	public static function isScrollDown():Bool {
+		return isScrollDown;
+	}
 }
