@@ -8,6 +8,7 @@ import lib.sro.ui.AnimatedSprite;
 import lib.sro.input.Mouse;
 import lib.sro.ui.TextAnimation;
 import lib.sro.core.Text;
+import lib.sro.ui.ButtonUI;
 
 /**
  * ...
@@ -58,14 +59,19 @@ class GameManager extends GameController
 		animatedText.y = 300;
 		layer.add(animatedText);
 		
+		var button = new ButtonUI(GameController.assets.getBitmap("defaultButton"),
+			GameController.assets.getBitmap("hoverButton"),
+			GameController.assets.getBitmap("clickButton"));
+		layer.add(button);
+		
 		screen1.add(layer);
 		return screen1;
 	}
 	
 	public override function update() {
 		super.update();
-		if (Mouse.isClick()) {
-			this.nextScreen();
-		}
+		//if (Mouse.isClick()) {
+		//	this.nextScreen();
+		//}
 	}
 }
