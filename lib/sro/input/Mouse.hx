@@ -60,6 +60,7 @@ class Mouse
 			click = false;
 			previousClick = true;
 		}
+		scrollUp = scrollDown = false;
 	}
 	
 	//Listen methods
@@ -76,10 +77,10 @@ class Mouse
 	}
 	
 	public static function isScrollUp():Bool {
-		return isScrollUp;
+		return scrollUp;
 	}
 	
 	public static function isScrollDown():Bool {
-		return isScrollDown;
+		return scrollDown;
 	}
 }
