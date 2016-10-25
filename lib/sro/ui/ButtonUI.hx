@@ -52,16 +52,20 @@ class ButtonUI extends BasicUI
 	private function updateButtonState() {
 		var previousState = currentState;
 		
+		trace(Mouse.isEndClick() + "-" + isPress);
+		
 		//update
 		if (isMouseIn()) {
-			if (!Mouse.isDown() && isPress) {
+			if (Mouse.isEndClick() && isPress) {
 				onClick();
 				isPress = false;
 				currentState = ButtonState.Hover;
-			} else if (Mouse.isDown()) {
+			}
+			if (Mouse.isBeginClick()) {
 				isPress = true;
 				currentState = ButtonState.Press;
-			} else {
+			}
+			if (!Mouse.isDown()) {
 				isPress = false;
 				currentState = ButtonState.Hover;
 			}
@@ -92,6 +96,7 @@ class ButtonUI extends BasicUI
 		
 	public function onClick() {
 		//onClick Event
+		trace("click on Button");
 	}
 	
 	public function onNewState() {
