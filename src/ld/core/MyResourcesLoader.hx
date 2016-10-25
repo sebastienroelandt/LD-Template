@@ -29,6 +29,13 @@ class MyResourcesLoader
 		rs.addBitmap("defaultButton", buttons[0]);
 		rs.addBitmap("hoverButton", buttons[1]);
 		rs.addBitmap("clickButton", buttons[2]);
+		
+		var toggleButtonBitmapData:BitmapData = Assets.getBitmapData("img/toggleButton.png");
+		var toggleButtons = ResourcesLoader.split(toggleButtonBitmapData, 0, 0, 20, 20, 4, 1);
+		rs.addBitmap("defaultRightButton", toggleButtons[0]);
+		rs.addBitmap("activeRightButton", toggleButtons[1]);
+		rs.addBitmap("defaultLeftButton", toggleButtons[2]);
+		rs.addBitmap("activeLeftButton", toggleButtons[3]);
 	}
 	
 }

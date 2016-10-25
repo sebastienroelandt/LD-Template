@@ -9,6 +9,7 @@ import lib.sro.input.Mouse;
 import lib.sro.ui.TextAnimation;
 import lib.sro.core.Text;
 import lib.sro.ui.ButtonUI;
+import lib.sro.ui.ToggleButtonUI;
 
 /**
  * ...
@@ -63,6 +64,18 @@ class GameManager extends GameController
 			GameController.assets.getBitmap("hoverButton"),
 			GameController.assets.getBitmap("clickButton"));
 		layer.add(button);
+		
+		var toggleButton = new ToggleButtonUI(250, 150,	GameController.assets.getBitmap("defaultLeftButton"),
+														GameController.assets.getBitmap("defaultRightButton"),
+														GameController.assets.getBitmap("activeLeftButton"),
+														GameController.assets.getBitmap("activeRightButton")
+														, 20);
+		layer.add(toggleButton);
+		
+		var toggleButton2 = new ToggleButtonUI(250, 180,GameController.assets.getBitmap("activeLeftButton"),
+														GameController.assets.getBitmap("activeRightButton"));
+		layer.add(toggleButton2);
+		
 		
 		screen1.add(layer);
 		return screen1;
