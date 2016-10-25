@@ -17,14 +17,14 @@ class Keys
 	}
 	
 	//Update
-	public static function setKeyDown(e:KeyboardEvent) {
+	public static function onKeyDown(e:KeyboardEvent) {
 		if (!downCodes.exists(e.keyCode)) {
 			Log.trace(e.keyCode);
 			onKey(e.keyCode, true);
 		}
 	}
 	
-	public static function setKeyUp(e:KeyboardEvent) {
+	public static function onKeyUp(e:KeyboardEvent) {
 		onKey(e.keyCode, false);
 	}
 	

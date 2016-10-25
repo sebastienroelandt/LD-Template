@@ -32,6 +32,7 @@ class GameController extends ScreenController
 		Lib.current.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseKeyUp);
 		Lib.current.stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseKeyDown);
 		Lib.current.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
+		Lib.current.stage.addEventListener(MouseEvent.MOUSE_WHEEL, onScroll);
 		Lib.current.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		
 		return this;
@@ -47,11 +48,11 @@ class GameController extends ScreenController
 	
 	///Event control
 	private function onKeyDown(event:KeyboardEvent) {
-		Keys.setKeyDown(event);
+		Keys.onKeyDown(event);
 	}
 	
 	private function onKeyUp(event:KeyboardEvent) {
-		Keys.setKeyUp(event);
+		Keys.onKeyUp(event);
 	}
 	
 	private function onMouseKeyDown(event:MouseEvent) {
@@ -64,6 +65,10 @@ class GameController extends ScreenController
 	
 	private function onMouseMove(event:MouseEvent) {
 		Mouse.onMove(event);
+	}
+	
+	private function onScroll(event:MouseEvent) {
+		Mouse.onScroll(event);
 	}
 	
 	private function onEnterFrame(e) {

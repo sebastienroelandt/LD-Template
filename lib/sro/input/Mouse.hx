@@ -10,29 +10,37 @@ import openfl.geom.Point;
 class Mouse
 {
 	static var down:Bool;
-	static var click:Bool;
-	static var previousClick:Bool;
+	static var endDown:Bool;
+	static var beginDown:Bool;
+	
+	static var endClick:Bool;
+	static var beginClick:Bool;
+	static var downClick:Bool;
+	
 	static var scrollUp:Bool;
 	static var scrollDown:Bool;
+	
 	static var x:Float;
 	static var y:Float;
 
 	public static function init(){
-		down = false;
-		click = false;
-		previousClick = false;
+		down = endDown = beginDown = false;
+		endClick = beginClick = downClick = false;
 		x = 0;
 		y = 0;
 	}
 	
 	//Update
 	public static function onKeyDown(e:MouseEvent) {
+		if (!down) {
+			beginDown = true;
+		}
 		down = true;
 	}
 	
 	public static function onKeyUp(e:MouseEvent) {
 		if (down) {
-			click = true;
+			endDown = true;
 		}
 		down = false;
 	}
@@ -55,21 +63,32 @@ class Mouse
 	}
 	
 	public static function reset() {
-		previousClick = false;
-		if (click) {
-			click = false;
-			previousClick = true;
+		endClick = false;
+		if (endDown) {
+			endDown = false;
+			endClick = true;
+			downClick = false;
+		}
+		beginClick = false;
+		if (beginDown) {
+			beginDown = false;
+			beginClick = true;
+			downClick = true;
 		}
 		scrollUp = scrollDown = false;
 	}
 	
 	//Listen methods
 	public static function isDown():Bool {
-		return down;
+		return downClick;
 	}
 	
-	public static function isClick():Bool {
-		return previousClick;
+	public static function isBeginClick():Bool {
+		return beginClick;
+	}
+	
+	public static function isEndClick():Bool {
+		return endClick;
 	}
 	
 	public static function getXY():Point{

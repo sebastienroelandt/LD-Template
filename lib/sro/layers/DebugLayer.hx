@@ -38,7 +38,7 @@ class DebugLayer extends DrawableLayer
 		topLeftText2.x = 100;
 		topLeftText2.text = ":\n:\n:\n:\n:";
 		topLeftText3 = Text.createText("fonts/AAAA.TTF");
-		topLeftText3.width = 300;
+		topLeftText3.width = 400;
 		topLeftText3.height = 300;
 		topLeftText3.x = 110;
 		
@@ -68,7 +68,7 @@ class DebugLayer extends DrawableLayer
 			output += DefaultConstant.LIBVERSION + " || GAME - v" + DefaultConstant.GAMEVERSION + "\n";
 			
 			var point:Point = Mouse.getXY() ;
-			output += "X-" + point.x + " || Y-" + point.y + " || " + Mouse.isClick() + "\n";
+			output += "X-" + point.x + " || Y-" + point.y + " || " + Mouse.isBeginClick() + " || " + Mouse.isEndClick() + " || " + Mouse.isDown() + "\n";
 			
 			output += "DOWN - " + Keys.downCodes.toString() + "\n";
 			output += "CLICK - " + Keys.click.toString();
