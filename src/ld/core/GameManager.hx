@@ -10,6 +10,7 @@ import lib.sro.ui.TextAnimation;
 import lib.sro.core.Text;
 import lib.sro.ui.ButtonUI;
 import lib.sro.ui.ToggleButtonUI;
+import lib.sro.ui.TiledMapUI;
 
 /**
  * ...
@@ -76,6 +77,8 @@ class GameManager extends GameController
 														GameController.assets.getBitmap("activeRightButton"));
 		layer.add(toggleButton2);
 		
+		var tilemap = new TiledMapUI(GameController.assets.getTileset("background"), [[12, 6, 13], [10, 3, 11]]);
+		layer.add(tilemap);
 		
 		screen1.add(layer);
 		return screen1;
