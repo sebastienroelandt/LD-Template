@@ -77,7 +77,7 @@ class GameManager extends GameController
 														GameController.assets.getBitmap("activeRightButton"));
 		layer.add(toggleButton2);
 		
-		var tilemap = new TiledMapUI(GameController.assets.getTileset("background"), [[12, 6, 13], [10, 3, 11]]);
+		var tilemap = new TiledMapUI(GameController.assets.getTileset("background"), [[12, 6, 13], [10, 3, 11]], [10, 11]);
 		layer.add(tilemap);
 		
 		screen1.add(layer);

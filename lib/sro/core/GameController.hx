@@ -4,9 +4,12 @@ import lib.sro.screen.ScreenController;
 import lib.sro.core.ResourcesStorage;
 import lib.sro.input.*;
 import openfl.events.KeyboardEvent;
+import openfl.ui.Keyboard;
 import openfl.events.MouseEvent;
 import openfl.events.Event;
 import openfl.Lib;
+
+import lib.sro.engine.*;
 
 /**
  * ...
@@ -42,6 +45,13 @@ class GameController extends ScreenController
 	override public function update() 
 	{
 		super.update();
+		if (Keys.isClick(Keyboard.F2)) {
+			CollisionBox.debugMode = !CollisionBox.debugMode;
+		}
+		if (Keys.isClick(Keyboard.F3)) {
+			CollisionGrid.debugMode = !CollisionGrid.debugMode;
+		}
+		
 		Mouse.reset();
 		Keys.reset();
 	}
