@@ -42,7 +42,7 @@ class DebugLayer extends DrawableLayer
 		topLeftText3.height = 300;
 		topLeftText3.x = 110;
 		
-		isDisplay = true;
+		isDisplay = false;
 		
 		this.addChild(topLeftText1);
 		this.addChild(topLeftText2);

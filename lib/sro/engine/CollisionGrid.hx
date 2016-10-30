@@ -2,6 +2,7 @@ package lib.sro.engine;
 
 import lib.sro.ui.BasicUI;
 import lime.math.Rectangle;
+import lib.sro.engine.CollisionReader;
 
 /**
  * ...
@@ -9,7 +10,7 @@ import lime.math.Rectangle;
  */
 class CollisionGrid extends BasicUI implements CollisionReader
 {
-	public static var debugMode:Bool = false;
+	public static var debugMode:Bool = true;
 	
 	private var tileHeigth:Float;
 	private var tileWidth:Float;
@@ -44,7 +45,7 @@ class CollisionGrid extends BasicUI implements CollisionReader
 	
 	override public function update(delta:Float)
 	{
-		this.visible = !debugMode;
+		this.visible = debugMode;
 	}
 	
 	public function setCollision (x:Int, y:Int, ?value:Bool = true) 
@@ -60,10 +61,10 @@ class CollisionGrid extends BasicUI implements CollisionReader
 	
 	public function pointHasCollision (x:Float, y:Float):Bool {
 		var toReturn:Bool = false;
-		if (xTiles > x && yTiles > y) {
+		if (xTiles > x && yTiles > y && y >= 0 && x >= 0) {
 			toReturn = grid[Std.int(y)][Std.int(x)];
 		}
-		return false;
+		return toReturn;
 	}
 	
 	public function boxHasCollision (box:CollisionBox):Bool {
@@ -71,4 +72,15 @@ class CollisionGrid extends BasicUI implements CollisionReader
 		return false;
 	}
 	
+	public function getHeigth():Float {
+		return tileHeigth;
+	}
+	
+	public function getWidth():Float {
+		return tileWidth;
+	}
+	
+	public function getType():CollisionType {
+		return CollisionType.Grid;
+	}
 }

@@ -1,5 +1,6 @@
 package lib.sro.ui;
 
+import lib.sro.engine.CollisionReader.CollisionType;
 import lib.sro.ui.BasicUI;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
@@ -32,12 +33,12 @@ class TiledMapUI extends BasicUI implements CollisionReader
 			var line = values[j];
 			for (i in 0...line.length) {
 				var tileBitmapData = tileset[line[i]];
-				
+				/*
 				var child = new BasicUI();
 				child.addChild(new Bitmap(tileBitmapData));
 				child.x = i * 32;
 				child.y = j * 32;
-				add(child);
+				add(child);*/
 				
 				//Collision
 				if (collisionId.indexOf(line[i]) != -1) {
@@ -53,8 +54,21 @@ class TiledMapUI extends BasicUI implements CollisionReader
 	{
 		return collisionGrid.pointHasCollision(x, y);
 	}
+	
 	public function boxHasCollision (box:CollisionBox):Bool 
 	{
 		return collisionGrid.boxHasCollision(box);
+	}
+	
+	public function getHeigth():Float {
+		return collisionGrid.getHeigth();
+	}
+	
+	public function getWidth():Float {
+		return collisionGrid.getWidth();
+	}
+	
+	public function getType():CollisionType {
+		return collisionGrid.getType();
 	}
 }

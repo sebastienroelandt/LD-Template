@@ -79,7 +79,21 @@ class AnimationData
 		return bitmaps.length;
 	}
 	
-	public function getSpeedStep(index:Int) {
+	public function getSpeedStep(index:Int):Int {
 		return speedsSteps[index];
+	}
+	
+	public function getDefaultHeight():Float {
+		if (bitmaps.length > 0) {
+			return bitmaps[0].height;
+		}
+		return 0;
+	}
+	
+	public function getDefalutWidth():Float {
+		if (bitmaps.length > 0) {
+			return bitmaps[0].width;
+		}
+		return 0;
 	}
 }

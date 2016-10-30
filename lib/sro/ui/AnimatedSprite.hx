@@ -27,6 +27,7 @@ class AnimatedSprite extends BasicUI
 		this.statedAnimationData = statedAnimationData;
 		animationDataQueue = new Array<AnimationData>();
 		bitmap = new Bitmap ();
+		//bitmap.visible = false;
 		addChild (bitmap);
 	}
 	
@@ -81,5 +82,25 @@ class AnimatedSprite extends BasicUI
 			var frame = currentAnimationData.getFrame(indexInFrame);
 			bitmap.bitmapData = frame.bitmapData;
 		}
+	}
+	
+	public function getBitmapHeigth():Float {
+		var toReturn:Float = 0;
+		if (bitmap.height == 0) {
+			toReturn = currentAnimationData.getDefaultHeight();
+		} else {
+			toReturn = bitmap.height;
+		}
+		return toReturn;
+	}
+	
+	public function getBitmapWidth():Float {
+		var toReturn:Float = 0;
+		if (bitmap.height == 0) {
+			toReturn = currentAnimationData.getDefaultHeight();
+		} else {
+			toReturn = bitmap.width;
+		}
+		return toReturn;
 	}
 }

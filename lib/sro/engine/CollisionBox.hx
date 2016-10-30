@@ -3,7 +3,7 @@ package lib.sro.engine;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import lib.sro.ui.BasicUI;
-
+import lib.sro.engine.CollisionReader;
 
 /**
  * ...
@@ -11,7 +11,7 @@ import lib.sro.ui.BasicUI;
  */
 class CollisionBox extends BasicUI implements CollisionReader
 {
-	public static var debugMode = false;
+	public static var debugMode:Bool = true;
 
 	private var box:Rectangle;
 	
@@ -19,25 +19,32 @@ class CollisionBox extends BasicUI implements CollisionReader
 	{
 		super();
 		box = new Rectangle(x1, y1, x2 - x1, y2 - y1);
-		this.graphics.beginFill(0xe08f16, 0.5);
+		this.graphics.beginFill(0xFF0000, 0.5);
 		this.graphics.drawRect(x1, y1, x2 - x1, y2 - y1);
 		this.graphics.endFill();
 	}
 	
-	override public function update(delta:Float)
-	{
-		this.visible = !debugMode;
+	override public function update(delta:Float) {
+		this.visible = debugMode;
 	}
 	
-	public function moveTo(xy:Point) 
-	{
+	public function moveTo(xy:Point) {
 		this.x = xy.x;
 		this.y = xy.y;
+	}
+	
+	public function getHeigth():Float {
+		return box.height;
+	}
+	
+	public function getWidth():Float {
+		return box.width;
 	}
 		
 	public function pointHasCollision (x:Float, y:Float):Bool {
 		return x > box.x && y > box.y && x < box.x + box.width && y < box.y + box.height;
 	}
+	
 	public function boxHasCollision (box:CollisionBox):Bool {
 		return pointHasCollision(box.x, box.y)
 			|| pointHasCollision(box.x + box.width, box.y)
@@ -45,4 +52,7 @@ class CollisionBox extends BasicUI implements CollisionReader
 			|| pointHasCollision(box.x + box.width, box.y + box.height);
 	}
 	
+	public function getType():CollisionType {
+		return CollisionType.Box;
+	}
 }
