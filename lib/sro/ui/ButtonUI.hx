@@ -52,8 +52,6 @@ class ButtonUI extends BasicUI
 	private function updateButtonState() {
 		var previousState = currentState;
 		
-		trace(Mouse.isEndClick() + "-" + isPress);
-		
 		//update
 		if (isMouseIn()) {
 			if (Mouse.isEndClick() && isPress) {

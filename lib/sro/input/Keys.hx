@@ -19,7 +19,6 @@ class Keys
 	//Update
 	public static function onKeyDown(e:KeyboardEvent) {
 		if (!downCodes.exists(e.keyCode)) {
-			Log.trace(e.keyCode);
 			onKey(e.keyCode, true);
 		}
 	}
