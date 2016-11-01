@@ -4,6 +4,7 @@ import lib.sro.core.ResourcesStorage;
 import lib.sro.data.StatedAnimationData;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
+import openfl.media.Sound;
 
 /**
  * ...
@@ -14,10 +15,11 @@ class ResourcesStorage
 	///Instance
 	private static var instance:ResourcesStorage;
 		
-	private static var statedAnimationDatas:Map<String,StatedAnimationData>;
-	private static var bitmaps:Map<String, Bitmap>;
-	private static var tilesets:Map<String, Array<BitmapData>>;
-	private static var tilemapValues:Map<String, Array<Array<Int>>>;
+	private var statedAnimationDatas:Map<String,StatedAnimationData>;
+	private var bitmaps:Map<String, Bitmap>;
+	private var tilesets:Map<String, Array<BitmapData>>;
+	private var tilemapValues:Map<String, Array<Array<Int>>>;
+	private var sounds:Map<String, Sound>;
 	
 	public static function getInstance():ResourcesStorage {
 		if (instance == null) {
@@ -31,6 +33,7 @@ class ResourcesStorage
 		bitmaps = new Map();
 		tilesets = new Map();
 		tilemapValues = new Map();
+		sounds = new Map();
 	}
 	
 	public function getStatedAnimationData(name:String):StatedAnimationData {
@@ -63,5 +66,13 @@ class ResourcesStorage
 	
 	public function addTilemapValues(name:String, values:Array<Array<Int>>) {
 		return tilemapValues.set(name, values);
+	}
+	
+	public function getSound(name:String):Sound {
+		return sounds.get(name);
+	}
+	
+	public function addSound(name:String, values:Sound) {
+		return sounds.set(name, values);
 	}
 }
