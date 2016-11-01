@@ -15,7 +15,7 @@ import openfl.ui.Keyboard;
 
 enum EntityDirection {
 	Left;
-	Rigth;
+	Right;
 	Up;
 	Down;
 }
@@ -55,6 +55,9 @@ class Entity extends AnimatedSprite
 	public var gravity				: Float;
 	public var speed				: Float;
 	
+	///Direction
+	public var direction			: EntityDirection;
+	
 	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null, 
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0)
 	{
@@ -84,31 +87,44 @@ class Entity extends AnimatedSprite
 		xr = yr = 0;
 		dx = dy = 0;
 		
-		setPosition(200, 200);
+		direction = EntityDirection.Right;
 	}
 	
 	public override function update(delta:Float) {
 		super.update(delta);
 		
-		if (Keys.isDown(Keyboard.LEFT)) {
-			dx -= speed;
-		}
-		if (Keys.isDown(Keyboard.RIGHT)) {
-			dx += speed;
-		}
 		if (Keys.isDown(Keyboard.UP)) {
 			dy -= speed;
+			direction = EntityDirection.Up;
 		} 
 		if (Keys.isDown(Keyboard.DOWN)) {
 			dy += speed;
+			direction = EntityDirection.Down;
 		} 
+		if (Keys.isDown(Keyboard.LEFT)) {
+			dx -= speed;
+			direction = EntityDirection.Left;
+		}
+		if (Keys.isDown(Keyboard.RIGHT)) {
+			dx += speed;
+			direction = EntityDirection.Right;
+		}
+		
+		xr+=dx;
+		dx *= frictX;
+		
+		yr+=dy;
+		dy *= frictY;
 		
 		if (autoCollisionCheck) {
-			checkCollision();
+			checkBoxCollision();
+			checkGridCollision();
 		}
+		
+		updateEntityPosition();
 	}
 	
-	public function setPosition(x,y) {
+	public function setPosition(x : Float, y : Float) {
 		xx = x + deltaLeft;
 		yy = y + deltaUp;
 		cx = Std.int(xx / 32);
@@ -117,10 +133,69 @@ class Entity extends AnimatedSprite
 		yr = (yy - cy * 32) / 32;
 	}
 	
-	public function checkCollision() {		
-		// X component
-		xr+=dx;
-		dx *= frictX;
+	private function setXPosition(x : Float) {
+		xx = x + deltaLeft;
+		cx = Std.int(xx / 32);
+		xr = (xx - cx * 32) / 32;
+	}
+	
+	private function setYPosition(y : Float) {
+		yy = y + deltaUp;
+		cy = Std.int(yy / 32);
+		yr = (yy - cy * 32) / 32;
+	}
+	
+	private function updateEntityPosition() {
+		xx = Std.int((cx + xr) * 32);
+		yy = Std.int((cy + yr) * 32);
+		this.x = xx - deltaLeft;
+		this.y = yy - deltaUp;
+	}
+	
+	public function checkBoxCollision() {
+		updateEntityPosition();
+		
+		var collisionBoxes = hasBoxCollision();
+		for (c in collisionBoxes) {
+			if (c != null) {
+				//Left, Rigth, Top or Down ?
+				//Bottom
+				var pxInBottom = Math.abs(c.box.y + c.box.height - this.y - deltaUp);
+				
+				//Top
+				var pxInTop = Math.abs(c.box.y - this.y - collisionBox.box.height - deltaUp);
+				
+				//Right 
+				var pxInRight = Math.abs(c.box.x + c.box.width - this.x - deltaDown);
+				
+				//Left
+				var pxInLeft = Math.abs(c.box.x - this.x - collisionBox.box.width - deltaDown);
+				
+				if (pxInBottom < pxInTop && pxInBottom < pxInRight && pxInBottom < pxInLeft) {
+					//Bottom
+					setYPosition(c.box.y + c.box.height - deltaUp + 0.8);
+					dy = 0;
+				} else if (pxInTop < pxInRight && pxInTop < pxInLeft) {
+					//Top
+					setYPosition(c.box.y - collisionBox.box.height - deltaUp - 0.8);
+					dy = 0;
+				} else if (pxInRight < pxInLeft) {
+					//Right
+					setXPosition(c.box.x + c.box.width - deltaLeft + 0.8);
+					dx = 0;
+				} else {
+					//Left
+					setXPosition(c.box.x - collisionBox.box.width - deltaLeft - 0.8);
+					dx = 0;
+				}
+			} 		
+		}
+		
+		updateEntityPosition();
+	}
+	
+	public function checkGridCollision() {		
+
 		//Left
 		for (i in 0...(heigthInTile + 1)) {
 			if (hasGridCollision(cx - 1, cy + i)  && xr <= 0.0) {
@@ -144,17 +219,14 @@ class Entity extends AnimatedSprite
 			xr--;
 		}
 		
-		// Y component
-		//dy+=gravity;
-		yr+=dy;
-		dy *= frictY;
+		// Up
 		for (i in 0...(heigthInTile + 1)) {
 			if (hasGridCollision(cx + i, cy - 1) && yr <= 0.0) {
 				dy = 0;
 				yr = 0;
 			}
 		}
-		//if ((hasCollision(cx, cy + 1) || hasCollision(cx + 1, cy + 1) && xr >= 0.7 || hasCollision(cx - 1, cy + 1) && xr <= 0.1) && yr >= 0 ) {
+		// Down
 		for (i in 0...(widthInTile + 1)) {
 			if (hasGridCollision(cx + i, cy + 1 + heigthInTile) && yr >= 1 - restHeigth) {
 				dy = 0;
@@ -169,11 +241,6 @@ class Entity extends AnimatedSprite
 			cy++;
 			yr--;
 		}
-			
-		xx = Std.int((cx + xr) * 32);
-		yy = Std.int((cy + yr) * 32);
-		this.x = xx - deltaLeft;
-		this.y = yy - deltaUp;
 	}
 
 	public function hasGridCollision(cx:Int, cy:Int):Bool{
@@ -185,9 +252,14 @@ class Entity extends AnimatedSprite
 		return false;
 	}
 	
-	public function hasBoxCollision():Bool {
-		//TODO
-		return false;
+	public function hasBoxCollision():Array<CollisionBox> {
+		var toReturn:Array<CollisionBox> = new Array();
+		for (c in collideToBox) {
+			if (c.boxHasCollision(collisionBox, this.x + deltaLeft, this.y + deltaUp)) {
+				toReturn.push(cast(c, CollisionBox));
+			}
+		}
+		return toReturn;
 	}
 	
 	public function setCollisionReader (collisionBox:CollisionBox)
@@ -197,19 +269,21 @@ class Entity extends AnimatedSprite
 
 	public function addCollideTo(collisionReader:CollisionReader) 
 	{
-		if (CollisionType.Box.equals(collisionReader.getType())
-			|| collideToGrid.length == 0 
-			|| (collideToGrid[0].getHeigth() == collisionReader.getHeigth()
-				&& collideToGrid[0].getWidth() == collisionReader.getWidth())) {
-			if (collideToGrid.length == 0) {
-				tileHeigth	= collisionReader.getHeigth();
-				tileWidth	= collisionReader.getWidth();	
-				heigthInTile = Std.int(collisionBox.getHeigth() / tileHeigth);
-				widthInTile = Std.int(collisionBox.getWidth() / tileWidth);
-				restHeigth = (collisionBox.getHeigth() % tileHeigth) / tileHeigth;
-				restWidth = (collisionBox.getWidth() % tileWidth) / tileWidth;
+		if (CollisionType.Grid.equals(collisionReader.getType())) 
+		{
+			if(collideToGrid.length == 0 || (collideToGrid[0].getHeigth() == collisionReader.getHeigth()
+				&& collideToGrid[0].getWidth() == collisionReader.getWidth())) 
+			{
+				if (collideToGrid.length == 0) {
+					tileHeigth	= collisionReader.getHeigth();
+					tileWidth	= collisionReader.getWidth();	
+					heigthInTile = Std.int(collisionBox.getHeigth() / tileHeigth);
+					widthInTile = Std.int(collisionBox.getWidth() / tileWidth);
+					restHeigth = (collisionBox.getHeigth() % tileHeigth) / tileHeigth;
+					restWidth = (collisionBox.getWidth() % tileWidth) / tileWidth;
+				}
+				collideToGrid.push(collisionReader);
 			}
-			collideToGrid.push(collisionReader);
 		} else {
 			collideToBox.push(collisionReader);
 		}

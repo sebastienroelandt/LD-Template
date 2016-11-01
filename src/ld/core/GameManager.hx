@@ -12,6 +12,9 @@ import lib.sro.ui.ButtonUI;
 import lib.sro.ui.ToggleButtonUI;
 import lib.sro.ui.TiledMapUI;
 import lib.sro.entity.Entity;
+import lib.sro.engine.CollisionBox;
+import lib.sro.info.Script;
+import openfl.display.Sprite;
 
 /**
  * ...
@@ -19,8 +22,6 @@ import lib.sro.entity.Entity;
  */
 class GameManager extends GameController
 {
-	public var i:Int;
-	
 	public function new()
 	{
 		var assets = ResourcesStorage.getInstance();
@@ -29,20 +30,6 @@ class GameManager extends GameController
 		
 		super();
 		
-		i = 10;
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
-		this.addScreen(initScreen1());
 		this.addScreen(initScreen1());
 		start();
 	}
@@ -74,39 +61,63 @@ class GameManager extends GameController
 		layer.add(toggleButton2);
 		
 		var layer2 = new DrawableLayer();
-		var tilemap = new TiledMapUI(GameController.assets.getTileset("background"), [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+		
+		var tilemap = new MyMap(GameController.assets.getTileset("background"), [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,12,7,7,13,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-								[1,1,1,12,0,0,0,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-								[1,1,1,10,0,0,0,0,7,7,7,7,13,1,1,1,1,1,12,5,13,1,1,1,1],
-								[1,1,1,1,10,0,0,0,0,0,0,0,9,1,1,1,1,12,0,0,9,1,1,1,1],
-								[1,1,1,1,1,8,0,0,0,0,0,0,0,13,1,1,1,8,0,17,9,1,1,1,1],
-								[1,1,1,1,1,10,4,0,0,0,0,2,3,11,1,1,1,10,4,16,11,1,1,1,1],
-								[1,1,1,1,1,1,1,10,3,3,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+								[1,1,0,0,0,0,0,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+								[1,1,0,0,0,0,0,0,7,7,7,7,13,1,1,1,1,1,12,5,13,1,1,1,1],
+								[1,1,0,0,0,0,0,0,0,0,0,0,9,1,1,1,1,12,0,0,9,1,1,1,1],
+								[1,1,1,0,0,0,0,0,0,0,0,0,0,13,1,1,1,8,0,17,9,1,1,1,1],
+								[1,1,1,1,0,0,0,0,0,0,0,2,3,11,1,1,1,10,4,16,11,1,1,1,1],
+								[1,1,1,1,1,0,0,0,0,0,11,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+								[1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+								[1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]], [1]);
+								[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]);
 		layer2.add(tilemap);
 		
-		var animatedSprite = new Entity(GameController.assets.getStatedAnimationData("fish"), null, 5, 5, 5, 5); 
-		animatedSprite.x = i; 
-		animatedSprite.y = i; 
-		animatedSprite.addCollideTo(tilemap);
-		i += 10;
+		/*
+		var block = new Sprite();
+		block.graphics.beginFill(0x0000FF, 0.5);
+		block.graphics.drawRect(200, 300, 10, 10);
+		block.graphics.endFill();
+		tilemap.addChild(block);*/
+		
+		var collideBox = new CollisionBox(210, 200, 400, 230);
+		var collideBox2 = new CollisionBox(300, 280, 310, 350);
+		var collideBox3 = new CollisionBox(220, 380, 230, 390);
+		
+		var animatedSprite = new Hero(GameController.assets.getStatedAnimationData("fish"), null, 5, 5, 5, 5); 
+		animatedSprite.setPosition(200, 200);
+		//animatedSprite.addCollideTo(tilemap);
+		animatedSprite.addCollideTo(collideBox);
+		animatedSprite.addCollideTo(collideBox2);
+		animatedSprite.addCollideTo(collideBox3);
+
 		layer2.y = 70;
 		
-		layer2.add(animatedSprite);
+		tilemap.addHero(animatedSprite);
+		tilemap.add(animatedSprite);
+		tilemap.add(collideBox);
+		tilemap.add(collideBox2);
+		tilemap.add(collideBox3);
 		
 		screen1.add(layer);
 		screen1.add(layer2);
+		
+		var script = new Script();
+		
+		var mySoundPlayer = new MySoundManager();
+		screen1.add(mySoundPlayer);
+		
 		return screen1;
 	}
 	

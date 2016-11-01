@@ -96,4 +96,8 @@ class AnimationData
 		}
 		return 0;
 	}
+	
+	public function getName():String {
+		return name;
+	}
 }

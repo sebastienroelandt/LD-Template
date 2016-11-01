@@ -55,9 +55,9 @@ class TiledMapUI extends BasicUI implements CollisionReader
 		return collisionGrid.pointHasCollision(x, y);
 	}
 	
-	public function boxHasCollision (box:CollisionBox):Bool 
+	public function boxHasCollision (box:CollisionBox, ?offsetX:Float = 0, ?offsetY:Float = 0):Bool
 	{
-		return collisionGrid.boxHasCollision(box);
+		return collisionGrid.boxHasCollision(box, offsetX, offsetY);
 	}
 	
 	public function getHeigth():Float {

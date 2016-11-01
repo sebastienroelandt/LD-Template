@@ -20,8 +20,8 @@ class MyResourcesLoader
 		var fish = new StatedAnimationData("fish");
 		fish.addLinearFrames("move_right", ResourcesLoader.splitToBitmap(bitmapData, 0, 0, 48, 48, 4), 100);
 		fish.setLoop("move_right", true);
-		//fish.addLinearFrames("transform_right", ResourcesLoader.splitToBitmap(bitmapData, 0, 48, 48, 48, 4), 100);
-		//fish.setLoop("transform_right", true);
+		fish.addLinearFrames("transform_right", ResourcesLoader.splitToBitmap(bitmapData, 0, 48, 48, 48, 4), 100);
+		fish.setLoop("transform_right", true);
 		rs.addStatedAnimationData("fish", fish);
 		
 		var buttonBitmapData:BitmapData = Assets.getBitmapData("img/button.png");
@@ -40,6 +40,10 @@ class MyResourcesLoader
 		var sourceTileset:BitmapData = Assets.getBitmapData("img/tileset.png");
 		var tileset:Array<BitmapData> = ResourcesLoader.splitToBitmapData(sourceTileset, 0, 0, 32, 32, 8, 3);
 		rs.addTileset("background", tileset);
+		
+		rs.addSound("1", Assets.getSound("audio/1.wav"));
+		rs.addSound("2", Assets.getSound("audio/2.wav"));
+		rs.addSound("3", Assets.getSound("audio/3.wav"));
 	}
 	
 }

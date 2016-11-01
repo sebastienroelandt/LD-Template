@@ -18,6 +18,7 @@ class AnimatedSprite extends BasicUI
 	private var bitmap:Bitmap;
 	private var animationFinish:Bool;
 	private var timeElapsed:Float;
+	private var currentAnimationName:String;
 	
 	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null) {
 		super(parent);
@@ -32,11 +33,13 @@ class AnimatedSprite extends BasicUI
 	}
 	
 	public function change(name:String) {
-		var animationData = statedAnimationData.getAnimationData(name);
-		if (animationData != null) {
-			currentAnimationData = animationData;
-			timeElapsed = 0;
-			animationFinish = false;
+		if (getCurrentAnimationName() != name) {
+			var animationData = statedAnimationData.getAnimationData(name);
+			if (animationData != null) {
+				currentAnimationData = animationData;
+				timeElapsed = 0;
+				animationFinish = false;
+			}
 		}
 	}
 	
@@ -102,5 +105,9 @@ class AnimatedSprite extends BasicUI
 			toReturn = bitmap.width;
 		}
 		return toReturn;
+	}
+	
+	public function getCurrentAnimationName():String {
+		return currentAnimationData.getName();
 	}
 }
