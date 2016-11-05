@@ -171,20 +171,28 @@ class Entity extends AnimatedSprite
 				//Left
 				var pxInLeft = Math.abs(c.box.x - this.x - collisionBox.box.width - deltaDown);
 				
-				if (pxInBottom < pxInTop && pxInBottom < pxInRight && pxInBottom < pxInLeft) {
-					//Bottom
+				if (pxInRight <= 1  && pxInBottom <= 1) {
+					// Coin bas-droit
+				} else if (pxInLeft <= 1  && pxInBottom <= 1) {
+					// Coin bas-gauche
+				} else if (pxInRight <= 1  && pxInTop <= 1) {
+					// Coin haut-droit
+				} else if (pxInLeft <= 1 && pxInTop <= 1) {
+					// Coin haut-gauche
+				} else if (pxInBottom < pxInTop && pxInBottom < pxInRight && pxInBottom < pxInLeft) {
+					// bas
 					setYPosition(c.box.y + c.box.height - deltaUp + 0.8);
 					dy = 0;
 				} else if (pxInTop < pxInRight && pxInTop < pxInLeft) {
-					//Top
+					// haut
 					setYPosition(c.box.y - collisionBox.box.height - deltaUp - 0.8);
 					dy = 0;
 				} else if (pxInRight < pxInLeft) {
-					//Right
+					// droite
 					setXPosition(c.box.x + c.box.width - deltaLeft + 0.8);
 					dx = 0;
 				} else {
-					//Left
+					// gauche
 					setXPosition(c.box.x - collisionBox.box.width - deltaLeft - 0.8);
 					dx = 0;
 				}
