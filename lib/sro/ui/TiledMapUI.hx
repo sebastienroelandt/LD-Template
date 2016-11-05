@@ -33,12 +33,12 @@ class TiledMapUI extends BasicUI implements CollisionReader
 			var line = values[j];
 			for (i in 0...line.length) {
 				var tileBitmapData = tileset[line[i]];
-				/*
+				
 				var child = new BasicUI();
 				child.addChild(new Bitmap(tileBitmapData));
 				child.x = i * 32;
 				child.y = j * 32;
-				add(child);*/
+				add(child);
 				
 				//Collision
 				if (collisionId.indexOf(line[i]) != -1) {

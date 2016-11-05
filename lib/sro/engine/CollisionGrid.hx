@@ -10,7 +10,7 @@ import lib.sro.engine.CollisionReader;
  */
 class CollisionGrid extends BasicUI implements CollisionReader
 {
-	public static var debugMode:Bool = true;
+	public static var debugMode:Bool = false;
 	
 	private var tileHeigth:Float;
 	private var tileWidth:Float;

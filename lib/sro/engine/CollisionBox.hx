@@ -11,7 +11,7 @@ import lib.sro.engine.CollisionReader;
  */
 class CollisionBox extends BasicUI implements CollisionReader
 {
-	public static var debugMode:Bool = true;
+	public static var debugMode:Bool = false;
 
 	public var box:Rectangle;
 	
