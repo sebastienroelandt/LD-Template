@@ -19,10 +19,7 @@ import openfl.Lib;
 class Main extends Sprite 
 {
 	var isInited:Bool = false;
-	var animatedSprite:AnimatedSprite;
 	var screenController: ScreenController;
-	var lastTime:Int;
-	var bool:Bool;
 	
 	public function init(e) 
 	{
