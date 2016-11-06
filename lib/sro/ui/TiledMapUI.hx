@@ -36,8 +36,8 @@ class TiledMapUI extends BasicUI implements CollisionReader
 				
 				var child = new BasicUI();
 				child.addChild(new Bitmap(tileBitmapData));
-				child.x = i * 32;
-				child.y = j * 32;
+				child.x = i * tileWidth;
+				child.y = j * tileHeigth;
 				add(child);
 				
 				//Collision
