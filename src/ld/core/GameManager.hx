@@ -1,5 +1,7 @@
 package ld.core;
 
+import lib.sro.layers.DebugLayer;
+import lib.sro.layers.ZoomLayer;
 import lib.sro.screen.Screen;
 import lib.sro.core.ResourcesStorage;
 import lib.sro.core.GameController;
@@ -14,7 +16,12 @@ import lib.sro.ui.TiledMapUI;
 import lib.sro.entity.Entity;
 import lib.sro.engine.CollisionBox;
 import lib.sro.info.Script;
+import lib.sro.ui.BasicUI;
+import openfl.display.Bitmap;
 import openfl.display.Sprite;
+import openfl.filters.BlurFilter;
+import openfl.filters.DropShadowFilter;
+import openfl.filters.GlowFilter;
 
 /**
  * ...
@@ -60,7 +67,7 @@ class GameManager extends GameController
 														GameController.assets.getBitmap("activeRightButton"));
 		layer.add(toggleButton2);
 		
-		var layer2 = new DrawableLayer();
+		var layer2 = new ZoomLayer();
 		
 		var tilemap = new MyMap(GameController.assets.getTileset("background"), 
 			[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -112,6 +119,32 @@ class GameManager extends GameController
 		tilemap.add(collideBox);
 		tilemap.add(collideBox2);
 		tilemap.add(collideBox3);
+		/*
+		//Bitmap effect
+		var fishes = new Array();
+		for (i in 0...5) {
+			var fish = new BasicUI();
+			fish.addChild(new Bitmap(GameController.assets.getTileset("fish")[0]));
+			fish.x = 200 + i * 50;
+			fish.y = 300;
+			fishes.push(fish);
+			tilemap.add(fish);
+		}
+		
+		fishes[1].filters = [new GlowFilter(0x343F50, 0.7, 2 ,2,10, 1,true)];
+		fishes[2].filters = [new DropShadowFilter(2,90, 0xFFFFFF,0.15, 0,0,1, 1,true)];
+		fishes[3].filters = [new BlurFilter()];
+		fishes[4].filters = [new GlowFilter(0xFFFF00, 0.1, 2, 2, 5, 1, true) ];*/
+		
+		//Ombre
+		var ombre = new BasicUI();
+			ombre.graphics.beginFill(0x000000, 0.2);
+			ombre.graphics.drawRoundRect(10, 0, 28, 10, 20);
+			ombre.graphics.endFill();
+			ombre.filters = [new GlowFilter(0xFFFFFF,0.15, 0,0,1, 1,false)];
+			ombre.x = 0;
+			ombre.y = 48;
+		animatedSprite.add(ombre);
 		
 		screen1.add(layer);
 		screen1.add(layer2);

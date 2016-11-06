@@ -44,6 +44,10 @@ class MyResourcesLoader
 		rs.addSound("1", Assets.getSound("audio/1.wav"));
 		rs.addSound("2", Assets.getSound("audio/2.wav"));
 		rs.addSound("3", Assets.getSound("audio/3.wav"));
+		
+		var fishFrame:BitmapData = Assets.getBitmapData("img/fish.png");
+		var tileset:Array<BitmapData> = ResourcesLoader.splitToBitmapData(fishFrame, 0, 0, 48, 48, 4, 2);
+		rs.addTileset("fish", tileset);
 	}
 	
 }
