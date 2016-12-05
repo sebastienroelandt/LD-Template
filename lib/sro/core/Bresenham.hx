@@ -15,6 +15,14 @@ class Bresenham
 		return Std.int(v); // actually it's more "truncate" than "round to 0"
 	}
 	
+	private static inline function fastInvSqrt(v:Float) {
+		return 1.0 / Math.sqrt(v);
+	}
+	
+	private static inline function fastSqrt(v:Float) {
+		return v*v;
+	}
+	
 	public static function concat(pts1:Array<{x:Int, y:Int}>, pts2:Array<{x:Int, y:Int}>) {
 		for (i in 0...pts2.length) {
 			pts1.push(pts2[i]);
@@ -178,6 +186,17 @@ class Bresenham
 		return true;
 	}
 	
+	public static function checkLargeLine(x1:Int, y1:Int, x2:Int, y2:Int, allowedMap:Array<Array<Bool>>):Bool
+	{
+		var pts = getLargeLine(x1, y1, x2, y2);
+		for (i in 0...pts.length) {
+			if (allowedMap[pts[i].y][pts[i].x]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public static function getLineBeforeCollision(x1:Int, y1:Int, x2:Int, y2:Int, allowedMap:Array<Array<Bool>>):Array<{x:Int, y:Int}>
 	{
 		var pts = getLargeLine(x1, y1, x2, y2);
@@ -193,6 +212,44 @@ class Bresenham
 			}
 		}
 		return toReturn;
+	}
+	
+	public static function checkDistance(x1:Int, y1:Int, x2:Int, y2:Int, maxDistance:Float) {
+		var x = x1-x2;
+        var y = y1-y2;
+        return Math.sqrt(x*x + y*y) <= maxDistance;
+	}
+	
+	public static function getAngle(centerx:Int, centery:Int, x2:Int, y2:Int, x3:Int, y3:Int) {
+        var p0c = Math.sqrt(Math.pow(centerx-x2,2)+
+                        Math.pow(centery-y2,2)); // p0->c (b)   
+		var p1c = Math.sqrt(Math.pow(centerx-x3,2)+
+							Math.pow(centery-y3,2)); // p1->c (a)
+		var p0p1 = Math.sqrt(Math.pow(x3-x2,2)+
+							 Math.pow(y3-y2,2)); // p0->p1 (c)
+		return Math.acos((p1c*p1c+p0c*p0c-p0p1*p0p1)/(2*p1c*p0c)) * 180 / Math.PI;
+	}
+	
+	public static function checkAngle(centerx:Int, centery:Int, x2:Int, y2:Int, x3:Int, y3:Int, maxAngle:Float) {
+		return getAngle(centerx, centery, x2, y2, x3, y3) <= maxAngle;
+	}
+	
+	public static function isInFieldOfVision(centerx:Int, centery:Int, x1:Int, y1:Int, x2:Int, y2:Int, maxDistance:Float, maxAngle:Float, allowedMap:Array<Array<Bool>>) {
+		//Check distance
+		if (!checkDistance(x1, y1, x2, y2, maxDistance)) {
+			return false;
+		}
+		
+		//Angles
+		if (!checkAngle(centerx, centery, x1, y1, x2, y2, maxAngle)) {
+			return false;
+		}
+		
+		//Existing way
+		if (allowedMap != null) {
+			return checkLargeLine(x1, y1, x2, y2, allowedMap);
+		}
+		return true;
 	}
 	
 	

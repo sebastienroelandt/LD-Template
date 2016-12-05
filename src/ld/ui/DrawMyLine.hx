@@ -70,6 +70,7 @@ class DrawMyLine extends BasicUI
 		//var pts:Array<{x:Int, y:Int}> = Bresenham.getDisc(12, 12, 5);
 		
 		//Light
+		/*
 		var pts = [];
 		var circlePts = Bresenham.getCircle(tileX, tileY, 12);
 		for (i in 0...circlePts.length) {
@@ -117,6 +118,19 @@ class DrawMyLine extends BasicUI
 					pts.push({x:tempPts[k].x, y:tempPts[k].y});
 				}
 			}
+		}*/
+		
+		//View
+		var pts = new Array();
+		pts.push( { x: 10, y: 5 } );
+		pts.push( { x: 20, y: 5 } );
+		pts.push( { x: Std.int(Mouse.getXY().x / 8), y:Std.int(Mouse.getXY().y / 8) } );
+		
+		if (Bresenham.isInFieldOfVision(pts[0].x, pts[0].y, pts[1].x, pts[1].y, pts[2].x, pts[2].y, 50, 90, null)) {
+			var pts2 = Bresenham.getLargeLine(pts[0].x, pts[0].y, pts[1].x, pts[1].y);
+			for (i in 0...pts2.length) {
+				pts.push({ x: pts2[i].x, y: pts2[i].y} );
+			}
 		}
 		
 		while (pts.length > cases.length) {
@@ -125,7 +139,8 @@ class DrawMyLine extends BasicUI
 		
 		for (i in 0...cases.length) {
 			if (pts.length > i ) {
-				var strengh = 1 / (1 + (Math.abs(tileX - pts[i].x) + Math.abs(tileY - pts[i].y)) / 5 ) / 1.3;
+				//var strengh = 1 / (1 + (Math.abs(tileX - pts[i].x) + Math.abs(tileY - pts[i].y)) / 5 ) / 1.3;
+				var strengh = 1;
 				
 				var block:Sprite = cases[i];
 				block.visible = true;
