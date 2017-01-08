@@ -11,11 +11,14 @@ import openfl.geom.Point;
 class Transformation
 {
 
-	public static function rotateRad(target:Sprite, pivot:Point, angle:Float) 
+	public static function rotateRad(target:Sprite, pivot:Point, angle:Float, ?initialCoord:Point = null) 
 	{
 		//Move to translation point
 		var matrix:Matrix = new Matrix();
-		var initialCoord:Point = new Point(100, 100);
+		if (initialCoord == null) {
+			initialCoord = new Point(200, 200);
+		}
+		
 		
 		matrix.tx -= pivot.x;
 		matrix.ty -= pivot.y;
@@ -44,9 +47,9 @@ class Transformation
 
 	}
 	
-	public static function rotateDegree(target:Sprite, pivot:Point, angle:Float)
+	public static function rotateDegree(target:Sprite, pivot:Point, angle:Float, ?initialCoord:Point = null) 
 	{
-		rotateRad(target, pivot, angle * Math.PI / 180);
+		rotateRad(target, pivot, angle * Math.PI / 180, initialCoord);
 	}
 	
 }

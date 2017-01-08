@@ -22,12 +22,15 @@ class Mouse
 	
 	static var x:Float;
 	static var y:Float;
+	
+	static var verticalDelta:Float;
 
 	public static function init(){
 		down = endDown = beginDown = false;
 		endClick = beginClick = downClick = false;
 		x = 0;
 		y = 0;
+		verticalDelta = 0;
 	}
 	
 	//Update
@@ -95,6 +98,10 @@ class Mouse
 		return new Point(x,y);
 	}
 	
+	public static function getXYwithDelta():Point{
+		return new Point(x,y + verticalDelta);
+	}
+	
 	public static function isScrollUp():Bool {
 		return scrollUp;
 	}
@@ -102,4 +109,9 @@ class Mouse
 	public static function isScrollDown():Bool {
 		return scrollDown;
 	}
+	
+	public static function setVerticalDelta(value:Float) {
+		verticalDelta = value;
+	}
+	
 }

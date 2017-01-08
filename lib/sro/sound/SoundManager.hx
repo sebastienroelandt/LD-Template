@@ -15,9 +15,11 @@ class SoundManager
 	private static var ME	: SoundManager;
 	
 	private var playingList		: Array<SoundChannel>;
+	public var isActive 		: Bool;
 	
 	private function new() {
 		playingList = new Array();
+		isActive = true;
 	}
 
 	public static function getInstance():SoundManager {
@@ -28,7 +30,7 @@ class SoundManager
 	}
 	
 	public function play(sound:Sound, ?soundVolume = 1.0) {
-		if (soundVolume >= 0 && soundVolume <= 1 && sound != null) {
+		if (soundVolume >= 0 && soundVolume <= 1 && sound != null && isActive) {
 			var soundChannel:SoundChannel = sound.play(0, 1);
 			soundChannel.soundTransform = new SoundTransform(soundVolume);
 		}
@@ -47,5 +49,13 @@ class SoundManager
 				soundChannel.soundTransform = new SoundTransform(value);
 			}
 		}
+	}
+	
+	public function stop() {
+		isActive = false;
+	}
+	
+	public function start() {
+		isActive = true;
 	}
 }

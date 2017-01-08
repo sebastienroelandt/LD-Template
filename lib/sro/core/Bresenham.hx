@@ -221,13 +221,17 @@ class Bresenham
 	}
 	
 	public static function getAngle(centerx:Int, centery:Int, x2:Int, y2:Int, x3:Int, y3:Int) {
-        var p0c = Math.sqrt(Math.pow(centerx-x2,2)+
+		var p0c = Math.sqrt(Math.pow(centerx-x2,2)+
                         Math.pow(centery-y2,2)); // p0->c (b)   
 		var p1c = Math.sqrt(Math.pow(centerx-x3,2)+
 							Math.pow(centery-y3,2)); // p1->c (a)
 		var p0p1 = Math.sqrt(Math.pow(x3-x2,2)+
 							 Math.pow(y3-y2,2)); // p0->p1 (c)
-		return Math.acos((p1c*p1c+p0c*p0c-p0p1*p0p1)/(2*p1c*p0c)) * 180 / Math.PI;
+		var result = Math.acos((p1c*p1c+p0c*p0c-p0p1*p0p1)/(2*p1c*p0c)) * 180 / Math.PI;
+		if (x3 < x2) {
+			return -result;
+		}
+		return result;
 	}
 	
 	public static function checkAngle(centerx:Int, centery:Int, x2:Int, y2:Int, x3:Int, y3:Int, maxAngle:Float) {

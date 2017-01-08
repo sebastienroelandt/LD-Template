@@ -47,12 +47,18 @@ class ToggleButtonUI extends BasicUI
 		this.rightBitmap.bitmapData = defaultRightBitmapData;
 		this.rightBitmap.x = x + delta;
 		this.rightBitmap.y = y;
+		if (delta == 0) {
+			this.rightBitmap.visible = false;
+		}
 		this.addChild(this.rightBitmap);
 		
 		this.leftBitmap = new Bitmap();
 		this.leftBitmap.bitmapData = activeLeftBitmapData;
 		this.leftBitmap.x = x;
 		this.leftBitmap.y = y;
+		if (delta == 0) {
+			this.leftBitmap.visible = true;
+		}
 		this.addChild(this.leftBitmap);
 	}
 	
@@ -68,16 +74,7 @@ class ToggleButtonUI extends BasicUI
 			if (Mouse.isEndClick() && isPress) {
 				onClick();
 				isPress = false;
-				if (currentState == ToggleButtonState.Left) {
-					currentState = ToggleButtonState.Right;
-					this.leftBitmap.bitmapData = defaultLeftBitmapData;
-					this.rightBitmap.bitmapData = activeRightBitmapData;
-				} else {
-					currentState = ToggleButtonState.Left;
-					this.leftBitmap.bitmapData = activeLeftBitmapData;
-					this.rightBitmap.bitmapData = defaultRightBitmapData;
-				}
-				inverseIndex();
+				inverseStates();
 			}
 			if (Mouse.isBeginClick()) {
 				isPress = true;
@@ -90,6 +87,23 @@ class ToggleButtonUI extends BasicUI
 				isPress = false;
 			}
 		}
+	}
+	
+	public function inverseStates() {
+		if (currentState == ToggleButtonState.Left) {
+			currentState = ToggleButtonState.Right;
+			this.leftBitmap.bitmapData = defaultLeftBitmapData;
+			this.rightBitmap.bitmapData = activeRightBitmapData;
+			this.leftBitmap.visible = false;
+			this.rightBitmap.visible = true;
+		} else {
+			currentState = ToggleButtonState.Left;
+			this.leftBitmap.bitmapData = activeLeftBitmapData;
+			this.rightBitmap.bitmapData = defaultRightBitmapData;
+			this.leftBitmap.visible = true;
+			this.rightBitmap.visible = false;
+		}
+		inverseIndex();
 	}
 	
 	private function isMouseIn():Bool {
@@ -122,5 +136,4 @@ class ToggleButtonUI extends BasicUI
 			this.setChildIndex(leftBitmap, max);
 		}
 	}
-	
 }
