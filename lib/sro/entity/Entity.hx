@@ -4,7 +4,6 @@ import lib.sro.ui.AnimatedSprite;
 import lib.sro.engine.*;
 import lib.sro.data.StatedAnimationData;
 import lib.sro.ui.BasicUI;
-import lib.sro.engine.CollisionReader;
 import lib.sro.input.Keys;
 import openfl.geom.Point;
 import openfl.ui.Keyboard;
@@ -43,6 +42,8 @@ class Entity extends AnimatedSprite
 	public var force				: Float;
 	
 	private var type				: String;
+	private var centerx 			: Float;
+	private var centery 			: Float;
 	
 	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null, 
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0)
@@ -62,6 +63,9 @@ class Entity extends AnimatedSprite
 		dx = dy = 0;
 		
 		direction = EntityDirection.Right;
+		
+		centerx = (this.getBitmapWidth() - deltaRight + deltaLeft) / 2;
+		centery = (this.getBitmapHeigth() - deltaDown + deltaUp)/ 2;
 	}
 	
 	public override function update(delta:Float) {
@@ -116,5 +120,9 @@ class Entity extends AnimatedSprite
 	
 	public function getType():String {
 		return type;
+	}
+	
+	public function getCenterPoint():Point {
+		return new Point(centerx + this.x, centery + this.y);
 	}
 }

@@ -16,10 +16,17 @@ class MyResourcesLoader
 {
 	public static function load(rs:ResourcesStorage) {
 		
-		var tileset = Assets.getBitmapData("img/2ColorsTileset.png");
-		var tilesetData = ResourcesLoader.splitToBitmapData(tileset, 0, 0, 8, 8, 2, 1);
-		rs.addTileset("myGround", tilesetData);
+		var body = new StatedAnimationData("body"); 
+		var bodyTileset = Assets.getBitmapData("img/Body.png"); 
+		body.addLinearFrames("move", ResourcesLoader.splitToBitmap(bodyTileset, 0, 0, 64, 64, 4, 1),100); 
+		body.setLoop("move", true); 
+		rs.addStatedAnimationData("body", body); 
 		
+		var head = new StatedAnimationData("head"); 
+		var headTileset = Assets.getBitmapData("img/Head.png"); 
+		head.addLinearFrames("move", ResourcesLoader.splitToBitmap(headTileset, 0, 0, 64, 64, 4, 1),100); 
+		head.setLoop("move", true); 
+		rs.addStatedAnimationData("head", head); 
 	}
 	
 }

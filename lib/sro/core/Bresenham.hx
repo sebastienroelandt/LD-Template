@@ -1,4 +1,5 @@
 package lib.sro.core;
+import openfl.geom.Point;
 
 /**
  * ...
@@ -256,5 +257,22 @@ class Bresenham
 		return true;
 	}
 	
+	public static function getMouvement(strength:Float, origine:Point, dest:Point):Point {
+		var X = dest.x - origine.x;
+		var Y = dest.y - origine.y;
+		var M = Math.sqrt(X * X + Y * Y);		
+		var x = strength * X / M;
+		var y = strength * Y / M;
+		return new Point(x, y);
+	}
 	
+	public static function getPointInADirection(strength:Float, origine:Point, angle:Float):Point {
+		//On calcul l'angle sur y -> sin(O) = a/h --> a = h * sin(O)
+		
+		var angleInRad = angle * Math.PI / 180;/*
+		var y = strength * Math.sin(angleInRad);
+		var x = Math.sqrt(strength * strength + y * y);		
+		return new Point(x + origine.x, y + origine.y);*/
+		return new Point(origine.x + Math.cos(angleInRad) * strength, origine.y + Math.sin(angleInRad) * strength);
+	}
 }

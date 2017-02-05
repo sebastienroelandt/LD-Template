@@ -1,5 +1,8 @@
 package lib.sro.entity;
 
+import lib.sro.data.StatedAnimationData;
+import lib.sro.ui.BasicUI;
+
 /**
  * Entity with collision and interraction with others EntityWithInterraction
  * 
@@ -8,8 +11,6 @@ package lib.sro.entity;
 class EntityWithInterraction extends EntityWithCollision
 {
 	private var radius				: Float;
-	private var centerx 			: Float;
-	private var centery 			: Float;
 
 	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null, 
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0) 
@@ -18,11 +19,9 @@ class EntityWithInterraction extends EntityWithCollision
 				deltaUp, deltaDown, deltaLeft, deltaRight);
 				
 		radius = this.getBitmapWidth() / 2;
-		centerx = (this.getBitmapWidth() - deltaRight + deltaLeft) / 2;
-		centery = (this.getBitmapHeigth() - deltaDown + deltaUp)/ 2;
 	}
 	
-	public function updatePositionDueToInteraction(allEntity:Array<Entity>) {
+	public function updatePositionDueToInteraction(allEntity:Array<EntityWithInterraction>) {
 		for ( e in allEntity ) {		
 			// Fast distance check
 			if( e!=this && Math.abs(cx-e.cx) <= 10 && Math.abs(cy-e.cy) <= 10 ) {
@@ -51,9 +50,4 @@ class EntityWithInterraction extends EntityWithCollision
 	public function onInteraction(with:Entity) {
 		//interraction with other entity
 	}
-	
-	public function getCenterPoint():Point {
-		return new Point(centerx + this.x, centery + this.y);
-	}
-	
 }

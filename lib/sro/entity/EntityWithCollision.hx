@@ -1,5 +1,10 @@
 package lib.sro.entity;
 
+import lib.sro.data.StatedAnimationData;
+import lib.sro.ui.BasicUI;
+import lib.sro.engine.CollisionReader;
+import lib.sro.engine.CollisionBox;
+
 /**
  * ...
  * @author Sebastien roelandt
@@ -27,7 +32,7 @@ class EntityWithCollision extends Entity
 	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null, 
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0) 
 	{
-		super(StatedAnimationData, parent);
+		super(statedAnimationData, parent);
 		
 		collideToGrid = new Array();
 		collideToBox = new Array();
@@ -37,6 +42,8 @@ class EntityWithCollision extends Entity
 		this.deltaLeft = deltaLeft;
 		this.deltaRight = deltaRight;
 		this.autoCollisionCheck = true;
+		this.tileWidth = 16;
+		this.tileHeigth = 16;
 		
 		collisionBox = new CollisionBox(x + deltaLeft, y + deltaUp, 
 				x +  this.getBitmapWidth() - deltaRight, y  + this.getBitmapHeigth() - deltaDown);
@@ -53,30 +60,30 @@ class EntityWithCollision extends Entity
 		super.afterUpdate(delta);
 	}
 	
-	public function setPosition(x : Float, y : Float) {
+	override public function setPosition(x : Float, y : Float) {
 		xx = x + deltaLeft;
 		yy = y + deltaUp;
-		cx = Std.int(xx / 16);
-		cy = Std.int(yy / 16);
-		xr = (xx - cx * 16) / 16;
-		yr = (yy - cy * 16) / 16;
+		cx = Std.int(xx / tileWidth);
+		cy = Std.int(yy / tileHeigth);
+		xr = (xx - cx * tileWidth) / tileWidth;
+		yr = (yy - cy * tileHeigth) / tileHeigth;
 	}
 	
-	private function setXPosition(x : Float) {
+	override private function setXPosition(x : Float) {
 		xx = x + deltaLeft;
-		cx = Std.int(xx / 16);
-		xr = (xx - cx * 16) / 16;
+		cx = Std.int(xx / tileWidth);
+		xr = (xx - cx * tileWidth) / tileWidth;
 	}
 	
-	private function setYPosition(y : Float) {
+	override private function setYPosition(y : Float) {
 		yy = y + deltaUp;
-		cy = Std.int(yy / 16);
-		yr = (yy - cy * 16) / 16;
+		cy = Std.int(yy / tileHeigth);
+		yr = (yy - cy * tileHeigth) / tileHeigth;
 	}
 	
-	private function updateEntityPosition() {
-		xx = Std.int((cx + xr) * 16);
-		yy = Std.int((cy + yr) * 16);
+	override private function updateEntityPosition() {
+		xx = Std.int((cx + xr) * tileWidth);
+		yy = Std.int((cy + yr) * tileHeigth);
 		this.x = xx - deltaLeft;
 		this.y = yy - deltaUp;
 	}
