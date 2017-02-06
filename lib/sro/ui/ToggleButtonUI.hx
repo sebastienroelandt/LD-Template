@@ -31,14 +31,14 @@ class ToggleButtonUI extends BasicUI
 	private var isPress:Bool;
 	private var currentState:ToggleButtonState;
 	
-	public function new(x:Float, y:Float, leftBitmap:Bitmap, rightBitmap:Bitmap, 
-		?leftActiveBitmap:Bitmap = null, ?rightActiveBitmap:Bitmap = null, ?delta:Float = 0) 
+	public function new(x:Float, y:Float, leftBitmapData:BitmapData, rightBitmapData:BitmapData, 
+		?leftActiveBitmapData:BitmapData = null, ?rightActiveBitmapData:BitmapData = null, ?delta:Float = 0) 
 	{
 		super();
-		this.defaultLeftBitmapData = leftBitmap.bitmapData;
-		this.activeLeftBitmapData = leftActiveBitmap == null ? defaultLeftBitmapData: leftActiveBitmap.bitmapData;
-		this.defaultRightBitmapData = rightBitmap.bitmapData;
-		this.activeRightBitmapData = rightActiveBitmap == null ? defaultRightBitmapData: rightActiveBitmap.bitmapData;
+		this.defaultLeftBitmapData = leftBitmapData;
+		this.activeLeftBitmapData = leftActiveBitmapData == null ? defaultLeftBitmapData: leftActiveBitmapData;
+		this.defaultRightBitmapData = rightBitmapData;
+		this.activeRightBitmapData = rightActiveBitmapData == null ? defaultRightBitmapData: rightActiveBitmapData;
 
 		this.isPress = false;
 		this.currentState = ToggleButtonState.Left;

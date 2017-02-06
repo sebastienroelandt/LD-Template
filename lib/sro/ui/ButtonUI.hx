@@ -30,16 +30,16 @@ class ButtonUI extends BasicUI
 	private var currentBitmap:Bitmap;
 	private var currentState:ButtonState;
 	
-	public function new(x:Float, y:Float, defaultBitmap:Bitmap, ?hoverBitmap:Bitmap, ?pressBitmap:Bitmap) 
+	public function new(x:Float, y:Float, defaultBitmapData:BitmapData, ?hoverBitmapData:BitmapData, ?pressBitmapData:BitmapData) 
 	{
 		super();
-		this.defaultBitmapData = defaultBitmap.bitmapData;
-		this.hoverBitmapData = hoverBitmap == null ? defaultBitmapData: hoverBitmap.bitmapData;
-		this.pressBitmapData = pressBitmap == null ? defaultBitmapData: pressBitmap.bitmapData;
+		this.defaultBitmapData = defaultBitmapData;
+		this.hoverBitmapData = hoverBitmapData == null ? defaultBitmapData: hoverBitmapData;
+		this.pressBitmapData = pressBitmapData == null ? defaultBitmapData: pressBitmapData;
 		this.isPress = false;
 		this.currentState = ButtonState.Default;
 		this.currentBitmap = new Bitmap();
-		this.currentBitmap.bitmapData = defaultBitmap.bitmapData;
+		this.currentBitmap.bitmapData = defaultBitmapData;
 		this.currentBitmap.x = x;
 		this.currentBitmap.y = y;
 		this.addChild(this.currentBitmap);
@@ -77,9 +77,9 @@ class ButtonUI extends BasicUI
 		if (previousState != currentState) {
 			onNewState();
 			switch (currentState) {
-				case ButtonState.Press 	: currentBitmap.bitmapData = pressBitmapData;
-				case ButtonState.Hover 	: currentBitmap.bitmapData = hoverBitmapData;
-				default					: currentBitmap.bitmapData = defaultBitmapData;					
+				case ButtonState.Press 	: currentBitmap = pressBitmapData;
+				case ButtonState.Hover 	: currentBitmap = hoverBitmapData;
+				default					: currentBitmap = defaultBitmapData;					
 			}
 		}
 	}

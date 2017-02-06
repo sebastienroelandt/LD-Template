@@ -1,4 +1,4 @@
-package lib.sro.;
+package lib.sro.entity;
 
 /**
  * ...
@@ -7,7 +7,7 @@ package lib.sro.;
 class RotationManager
 {
 
-	public function new() 
+	public function new(entity:Entity) 
 	{
 		
 	}

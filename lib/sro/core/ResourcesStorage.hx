@@ -16,7 +16,7 @@ class ResourcesStorage
 	private static var instance:ResourcesStorage;
 		
 	private var statedAnimationDatas:Map<String,StatedAnimationData>;
-	private var bitmaps:Map<String, Bitmap>;
+	private var bitmaps:Map<String, BitmapData>;
 	private var tilesets:Map<String, Array<BitmapData>>;
 	private var tilemapValues:Map<String, Array<Array<Int>>>;
 	private var sounds:Map<String, Sound>;
@@ -44,11 +44,11 @@ class ResourcesStorage
 		return statedAnimationDatas.set(name, spritesheet);
 	}
 	
-	public function getBitmap(name:String):Bitmap {
+	public function getBitmapData(name:String):BitmapData {
 		return bitmaps.get(name);
 	}
 	
-	public function addBitmap(name:String, bitmap:Bitmap) {
+	public function addBitmapData(name:String, bitmap:BitmapData) {
 		return bitmaps.set(name, bitmap);
 	}
 	

@@ -21,7 +21,6 @@
     <class path="E:\Installation\HaxeToolkit\haxe\lib\actuate\1,8,6" />
     <class path="src" />
     <class path="bin\flash\haxe" />
-    <class path="lib\sro\ui" />
     <class path="lib\sro\core" />
     <class path="lib\sro\data" />
     <class path="lib\sro\debug" />
@@ -33,6 +32,7 @@
     <class path="lib\sro\layers" />
     <class path="lib\sro\screen" />
     <class path="lib\sro\sound" />
+    <class path="lib\sro\ui" />
   </classpaths>
   <!-- Build options -->
   <build>

@@ -4,6 +4,7 @@ import lib.sro.ui.BasicUI;
 import openfl.display.Sprite;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
+import lib.sro.layers.DebugLayer;
 
 /**
  * ...
@@ -25,6 +26,12 @@ class ViusalPoint extends BasicUI
 	public function setPosition(point:Point) {
 		this.x = point.x;
 		this.y = point.y;
+	}
+	
+	override public function update(delta:Float) 
+	{
+		super.update(delta);
+		this.visible = DebugLayer.isDisplay;
 	}
 	
 }

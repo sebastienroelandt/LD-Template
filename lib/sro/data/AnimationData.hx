@@ -1,6 +1,6 @@
 package lib.sro.data;
 
-import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 
 /**
  * ...
@@ -10,7 +10,7 @@ class AnimationData
 {
 	private var name:String;
 
-	private var bitmaps:Array<Bitmap>;
+	private var bitmaps:Array<BitmapData>;
 	private var speeds:Array<Int>;
 	private var speedsSteps:Array<Int>;
 	
@@ -20,7 +20,7 @@ class AnimationData
 	{
 		this.name = name;
 		
-		this.bitmaps = new Array<Bitmap>();
+		this.bitmaps = new Array<BitmapData>();
 		this.speeds = new Array<Int>();
 		this.speedsSteps = new Array<Int>();
 		this.loop = loop;
@@ -35,7 +35,7 @@ class AnimationData
 		}
 	}
 	
-	public function addLinearFrames(frames:Array<Bitmap>, ?speed:Int=1) {
+	public function addLinearFrames(frames:Array<BitmapData>, ?speed:Int=1) {
 		var speeds = new Array<Int>();
 		for (frame in frames) {
 			speeds.push(speed);
@@ -43,7 +43,7 @@ class AnimationData
 		addVariousFrames(frames, speeds);
 	}
 	
-	public function addVariousFrames(frames:Array<Bitmap>, speeds:Array<Int>) {
+	public function addVariousFrames(frames:Array<BitmapData>, speeds:Array<Int>) {
 		if (frames.length == speeds.length) {
 			for (frame in frames) {
 				bitmaps.push(frame);
@@ -68,7 +68,7 @@ class AnimationData
 		return speedsSteps[speedsSteps.length - 1];
 	}
 	
-	public function getFrame(index:Int):Bitmap {
+	public function getFrame(index:Int):BitmapData {
 		if (index > bitmaps.length ) {
 			index = bitmaps.length;
 		}

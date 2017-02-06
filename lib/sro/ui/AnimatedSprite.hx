@@ -83,7 +83,7 @@ class AnimatedSprite extends BasicUI
 				}
 			}
 			var frame = currentAnimationData.getFrame(indexInFrame);
-			bitmap.bitmapData = frame.bitmapData;
+			bitmap.bitmapData = frame;
 		}
 	}
 	

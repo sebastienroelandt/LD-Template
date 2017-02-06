@@ -17,16 +17,17 @@ import openfl.geom.Point;
  */
 class Body extends EntityWithInterraction implements FollowRotationTarget implements FollowRotationSource
 {
+	var player			:	Player;
+	
 	var attachedTo 		: 	Body;
 	var distanceMax		:	Int;
 	var isInit 			: 	Bool;
 	var strenght		:	Float;
-	var visualPosition	:	Point; 
 	var currentRotation	:	Float;
 	
 	var debugPoint		:	ViusalPoint;
 	
-	public function new(statedAnimationData:StatedAnimationData, ?attachedTo:Body = null, ?parent:BasicUI = null, 
+	public function new(player:Player, statedAnimationData:StatedAnimationData, ?attachedTo:Body = null, ?parent:BasicUI = null, 
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0) 
 	{
 		super(statedAnimationData, parent, deltaUp, deltaDown, deltaLeft, deltaRight);
@@ -42,29 +43,23 @@ class Body extends EntityWithInterraction implements FollowRotationTarget implem
 		} else {
 			setPosition(200, 200);
 		}
-		setVisualPosition(getPosition());
-		
-		distanceMax = 34;
+				
+		distanceMax = 64;
 		isInit = false;
-		strenght = 0.01;
+		strenght = 0.05;
 		this.type = "Body";
 		this.frictX = 0.2;
 		this.frictY = 0.2;
-		radius = 50;
+		
+		this.interractionRadius = 32;
+		this.interractionStrenght = 0.5;
 		
 		debugPoint = new ViusalPoint();
 		debugPoint.x = 32;
 		debugPoint.y = 32;
 		this.add(debugPoint);
 		
-	}
-	
-	public function getPosition():Point {
-		return new Point(xx, yy);
-	}
-	
-	public function getCenter():Point {
-		return new Point(32, 32);
+		this.player = player;
 	}
 	
 	public function getSprite():Sprite {
@@ -77,14 +72,6 @@ class Body extends EntityWithInterraction implements FollowRotationTarget implem
 	
 	public function setRotation(currentRotation:Float) {
 		this.currentRotation = currentRotation;
-	}
-	
-	public function setVisualPosition(visualPosition:Point) {
-		this.visualPosition = visualPosition;
-	}
-	
-	public function getVisualPosition():Point {
-		return visualPosition;
 	}
 	
 	override public function beforeUpdate(delta:Float) {
@@ -107,10 +94,24 @@ class Body extends EntityWithInterraction implements FollowRotationTarget implem
 		this.isInit = true;
 		
 		if (attachedTo != null) {
+			/*
 			var mapEntity = new Array();
 			mapEntity.push(cast(attachedTo,EntityWithInterraction));
+			updatePositionDueToInteraction(mapEntity);*/
+			var mapEntity = new Array();
+			if (player != null) {
+				for (c in player.getCells()) {
+					mapEntity.push(cast(c, EntityWithInterraction));
+				}
+			}
 			updatePositionDueToInteraction(mapEntity);
+			
 		}
+	}
+	
+	public function setPlayer(player:Player )
+	{
+		this.player = player;
 	}
 	
 	override public function afterUpdate(delta:Float) 

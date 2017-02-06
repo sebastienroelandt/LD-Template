@@ -42,8 +42,11 @@ class Entity extends AnimatedSprite
 	public var force				: Float;
 	
 	private var type				: String;
-	private var centerx 			: Float;
-	private var centery 			: Float;
+	private var calculateWidth 		: Float;
+	private var calculateHeight 	: Float;
+	
+	//Rotation
+	private var visualPosition		: Point;
 	
 	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null, 
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0)
@@ -64,8 +67,8 @@ class Entity extends AnimatedSprite
 		
 		direction = EntityDirection.Right;
 		
-		centerx = (this.getBitmapWidth() - deltaRight + deltaLeft) / 2;
-		centery = (this.getBitmapHeigth() - deltaDown + deltaUp)/ 2;
+		calculateWidth = (this.getBitmapWidth() - deltaRight + deltaLeft);
+		calculateHeight = (this.getBitmapHeigth() - deltaDown + deltaUp);
 	}
 	
 	public override function update(delta:Float) {
@@ -93,27 +96,31 @@ class Entity extends AnimatedSprite
 	public function setPosition(x : Float, y : Float) {
 		xx = x;
 		yy = y;
-		cx = Std.int(xx / 16);
-		cy = Std.int(yy / 16);
-		xr = (xx - cx * 16) / 16;
-		yr = (yy - cy * 16) / 16;
+		cx = Std.int(xx / calculateWidth);
+		cy = Std.int(yy / calculateHeight);
+		xr = (xx - cx * calculateWidth) / calculateWidth;
+		yr = (yy - cy * calculateHeight) / calculateHeight;
+	}
+	
+	public function getPosition():Point {
+		return new Point(xx, yy);
 	}
 	
 	private function setXPosition(x : Float) {
 		xx = x;
-		cx = Std.int(xx / 16);
-		xr = (xx - cx * 16) / 16;
+		cx = Std.int(xx / calculateWidth);
+		xr = (xx - cx * calculateWidth) / calculateWidth;
 	}
 	
 	private function setYPosition(y : Float) {
 		yy = y;
-		cy = Std.int(yy / 16);
-		yr = (yy - cy * 16) / 16;
+		cy = Std.int(yy / calculateHeight);
+		yr = (yy - cy * calculateHeight) /calculateHeight;
 	}
 	
 	private function updateEntityPosition() {
-		xx = Std.int((cx + xr) * 16);
-		yy = Std.int((cy + yr) * 16);
+		xx = Std.int((cx + xr) * calculateWidth);
+		yy = Std.int((cy + yr) * calculateHeight);
 		this.x = xx;
 		this.y = yy;
 	}
@@ -123,6 +130,21 @@ class Entity extends AnimatedSprite
 	}
 	
 	public function getCenterPoint():Point {
-		return new Point(centerx + this.x, centery + this.y);
+		return new Point((calculateWidth / 2) + this.x, (calculateHeight / 2) + this.y);
+	}
+	
+	public function setVisualPosition(visualPosition:Point) {
+		this.visualPosition = visualPosition;
+	}
+	
+	public function getVisualPosition():Point {
+		if (visualPosition != null) {
+			return visualPosition;
+		}
+		return new Point(x, y);
+	}
+	
+	public function getCenter():Point {
+		return new Point(calculateWidth / 2, calculateHeight / 2);
 	}
 }

@@ -16,10 +16,10 @@ import openfl.geom.Point;
 class Head extends Body
 {
 	
-	public function new(statedAnimationData:StatedAnimationData, ?attachedTo:Body = null, ?parent:BasicUI = null, 
+	public function new(player:Player, statedAnimationData:StatedAnimationData, ?attachedTo:Body = null, ?parent:BasicUI = null, 
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0) 
 	{
-		super(statedAnimationData, attachedTo, parent, deltaUp, deltaDown, deltaLeft, deltaRight);
+		super(player, statedAnimationData, attachedTo, parent, deltaUp, deltaDown, deltaLeft, deltaRight);
 		
 		if (attachedTo == null) {
 			new FollowRotationEffect(this, null);

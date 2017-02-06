@@ -17,11 +17,10 @@ class Player extends BasicUI
 		super();
 		cells = new Array();
 		
-		addCell(new Head(headAnimation));
-		addCell(new Body(bodyAnimation,getLastCell()));
-		addCell(new Body(bodyAnimation,getLastCell()));
-		addCell(new Body(bodyAnimation,getLastCell()));
-		addCell(new Body(bodyAnimation,getLastCell()));
+		addCell(new Head(this, headAnimation));
+		for (i in 0...5) {
+			addCell(new Body(this, bodyAnimation,getLastCell()));
+		}
 	}
 	
 	override public function update(delta:Float) 
@@ -56,6 +55,11 @@ class Player extends BasicUI
 			cell = cells[cells.length - 1];
 		}
 		return cell;
+	}
+	
+	public function getCells():Array<Body>
+	{
+		return cells;
 	}
 	
 }

@@ -6,6 +6,8 @@ import lib.sro.layers.DrawableLayer;
 import lib.sro.screen.Screen;
 import lib.sro.screen.ScreenController;
 import lib.sro.core.GameController;
+import lib.sro.ui.ToggleButtonUI;
+import lib.sro.ui.ToggleButtonUI.ToggleButtonState;
 
 
 /**
@@ -33,6 +35,9 @@ class PlayScreen extends Screen
 		
 		debutPoint = new ViusalPoint(5, 0x00FF00);
 		playlayer.add(debutPoint);
+		
+		//var toggle = new ToggleButtonUI(10, 10, GameController.assets.getBitmapData("t1"), GameController.assets.getBitmapData("t2"));
+		//playlayer.add(toggle);
 		
 		this.add(playlayer);
 	}

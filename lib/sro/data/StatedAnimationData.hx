@@ -1,6 +1,6 @@
 package lib.sro.data;
 
-import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 
 /**
  * ...
@@ -17,11 +17,11 @@ class StatedAnimationData
 		this.name = name;
 	}
 	
-	public function addLinearFrames(name:String, frames:Array<Bitmap>, ?speed:Int = 1):Void {
+	public function addLinearFrames(name:String, frames:Array<BitmapData>, ?speed:Int = 1):Void {
 		getAnimationData(name).addLinearFrames(frames, speed);
 	}
 	
-	public function addVariousFrames(name:String, frames:Array<Bitmap>, speeds:Array<Int>):Void {
+	public function addVariousFrames(name:String, frames:Array<BitmapData>, speeds:Array<Int>):Void {
 		getAnimationData(name).addVariousFrames(frames, speeds);
 	}
 	

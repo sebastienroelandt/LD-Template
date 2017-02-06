@@ -22,7 +22,7 @@ class DebugLayer extends DrawableLayer
 	var topLeftText1:TextField;
 	var topLeftText2:TextField;
 	var topLeftText3:TextField;
-	var isDisplay:Bool;
+	public static var isDisplay:Bool;
 	var lastTimer:Float;
 	var animatedSprite:AnimatedSprite;
 	
