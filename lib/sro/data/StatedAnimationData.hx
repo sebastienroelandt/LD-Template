@@ -49,4 +49,8 @@ class StatedAnimationData
 		}
 		return animationData;
 	}
+	
+	public function getAnimationTime():Float {
+		return getDefaultAnimationData().getLoopTime(); 
+	}
 }

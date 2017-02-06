@@ -33,6 +33,11 @@ class MyResourcesLoader
 		rs.addBitmapData("t1", toggleButtons[0]); 
 		rs.addBitmapData("t2", toggleButtons[1]); 
 	
+		var head = new StatedAnimationData("bubulle"); 
+		var headTileset = Assets.getBitmapData("img/Bubulle.png"); 
+		head.addLinearFrames("move", ResourcesLoader.splitToBitmapData(headTileset, 0, 0, 32, 32, 4, 1),100); 
+		head.setLoop("move", true); 
+		rs.addStatedAnimationData("bubulle", head); 
 	}
 	
 }

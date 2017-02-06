@@ -31,7 +31,7 @@ class Head extends Body
 		super.beforeUpdate(delta);
 		
 		var previousPos = getPosition();
-		var mousePos = Mouse.getXY();
+		var mousePos = new Point(200, 200);//Mouse.getXY();
 		var pos = new Point(mousePos.x - 32, mousePos.y - 32);
 		
 		setPosition(pos.x, pos.y);

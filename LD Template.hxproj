@@ -33,6 +33,7 @@
     <class path="lib\sro\screen" />
     <class path="lib\sro\sound" />
     <class path="lib\sro\ui" />
+    <class path="lib\sro\particles" />
   </classpaths>
   <!-- Build options -->
   <build>
