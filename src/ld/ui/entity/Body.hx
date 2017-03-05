@@ -6,7 +6,9 @@ import lib.sro.debug.ViusalPoint;
 import lib.sro.effect.FollowRotationEffect;
 import lib.sro.effect.FollowRotationTarget;
 import lib.sro.effect.FollowRotationSource;
-import lib.sro.entity.EntityWithInterraction;
+import lib.sro.entity.InterractionController;
+import lib.sro.entity.IEntity;
+import lib.sro.entity.Entity;
 import lib.sro.ui.BasicUI;
 import openfl.display.Sprite;
 import openfl.geom.Point;
@@ -15,7 +17,7 @@ import openfl.geom.Point;
  * ...
  * @author Sebastien roelandt
  */
-class Body extends EntityWithInterraction implements FollowRotationTarget implements FollowRotationSource
+class Body extends Entity implements FollowRotationTarget implements FollowRotationSource
 {
 	var player			:	Player;
 	
@@ -31,6 +33,9 @@ class Body extends EntityWithInterraction implements FollowRotationTarget implem
 		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0) 
 	{
 		super(statedAnimationData, parent, deltaUp, deltaDown, deltaLeft, deltaRight);
+		
+		this.interractionController = new InterractionController(this, 22, 0.05);
+		
 		this.attachedTo = attachedTo;
 		
 		currentRotation = 90;
@@ -46,14 +51,11 @@ class Body extends EntityWithInterraction implements FollowRotationTarget implem
 				
 		distanceMax = 64;
 		isInit = false;
-		strenght = 0.05;
+		strenght = 0.005;
 		this.type = "Body";
 		this.frictX = 0.2;
 		this.frictY = 0.2;
-		
-		this.interractionRadius = 32;
-		this.interractionStrenght = 0.5;
-		
+				
 		debugPoint = new ViusalPoint();
 		debugPoint.x = 32;
 		debugPoint.y = 32;
@@ -101,10 +103,10 @@ class Body extends EntityWithInterraction implements FollowRotationTarget implem
 			var mapEntity = new Array();
 			if (player != null) {
 				for (c in player.getCells()) {
-					mapEntity.push(cast(c, EntityWithInterraction));
+					mapEntity.push(cast(c, IEntity));
 				}
 			}
-			updatePositionDueToInteraction(mapEntity);
+			interractionController.updatePositionDueToInteraction(mapEntity);
 			
 		}
 	}

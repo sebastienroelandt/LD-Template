@@ -1,7 +1,5 @@
 package lib.sro.entity;
 
-import lib.sro.data.StatedAnimationData;
-import lib.sro.ui.BasicUI;
 import lib.sro.engine.CollisionReader;
 import lib.sro.engine.CollisionBox;
 
@@ -9,8 +7,10 @@ import lib.sro.engine.CollisionBox;
  * ...
  * @author Sebastien roelandt
  */
-class EntityWithCollision extends Entity
+class CollisionManager implements ICollisionManager
 {
+	private var entity				: IEntity;
+	
 	private var collideToGrid		: Array<CollisionReader>;
 	private var collideToBox		: Array<CollisionReader>;
 
@@ -29,10 +29,9 @@ class EntityWithCollision extends Entity
 	
 	public var autoCollisionCheck 	: Bool;
 	
-	public function new(statedAnimationData:StatedAnimationData, ?parent:BasicUI = null, 
-		?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0) 
+	public function new(entity:IEntity, ?deltaUp = 0, ?deltaDown = 0, ?deltaLeft = 0, ?deltaRight = 0) 
 	{
-		super(statedAnimationData, parent);
+		this.entity = entity;
 		
 		collideToGrid = new Array();
 		collideToBox = new Array();
@@ -47,49 +46,46 @@ class EntityWithCollision extends Entity
 		
 		collisionBox = new CollisionBox(x + deltaLeft, y + deltaUp, 
 				x +  this.getBitmapWidth() - deltaRight, y  + this.getBitmapHeigth() - deltaDown);
-		add(collisionBox);
+		entity.add(collisionBox);
 	}
 	
-	override public function afterUpdate(delta:Float) 
+	public function beforeUpdate(delta:Float):Void {}
+	public function update(delta:Float):Void {}
+	
+	public function afterUpdate(delta:Float) 
 	{
 		if (autoCollisionCheck) {
 			checkBoxCollision();
 			checkGridCollision();
 		}
-		
-		super.afterUpdate(delta);
 	}
 	
-	override public function setPosition(x : Float, y : Float) {
-		xx = x + deltaLeft;
-		yy = y + deltaUp;
-		cx = Std.int(xx / tileWidth);
-		cy = Std.int(yy / tileHeigth);
-		xr = (xx - cx * tileWidth) / tileWidth;
-		yr = (yy - cy * tileHeigth) / tileHeigth;
+	public function setPosition(x : Float, y : Float) {
+		setXPosition(x);
+		setYPosition(y);
 	}
 	
-	override private function setXPosition(x : Float) {
-		xx = x + deltaLeft;
-		cx = Std.int(xx / tileWidth);
-		xr = (xx - cx * tileWidth) / tileWidth;
+	public function setXPosition(x : Float) {
+		entity.xx = x + deltaLeft;
+		entity.cx = Std.int(entity.xx / tileWidth);
+		entity.xr = (entity.xx - entity.cx * tileWidth) / tileWidth;
 	}
 	
-	override private function setYPosition(y : Float) {
-		yy = y + deltaUp;
-		cy = Std.int(yy / tileHeigth);
-		yr = (yy - cy * tileHeigth) / tileHeigth;
+	public function setYPosition(y : Float) {
+		entity.yy = y + deltaUp;
+		entity.cy = Std.int(entity.yy / tileHeigth);
+		entity.yr = (entity.yy - entity.cy * tileHeigth) / tileHeigth;
 	}
 	
-	override private function updateEntityPosition() {
-		xx = Std.int((cx + xr) * tileWidth);
-		yy = Std.int((cy + yr) * tileHeigth);
-		this.x = xx - deltaLeft;
-		this.y = yy - deltaUp;
+	private function updateEntityPosition() {
+		entity.xx = Std.int((entity.cx + entity.xr) * tileWidth);
+		entity.yy = Std.int((entity.cy + entity.yr) * tileHeigth);
+		entity.x = entity.xx - deltaLeft;
+		entity.y = entity.yy - deltaUp;
 	}
 	
 	public function checkBoxCollision() {
-		updateEntityPosition();
+		entity.updateEntityPosition();
 		
 		var collisionBoxes = hasBoxCollision();
 		for (c in collisionBoxes) {
@@ -117,25 +113,25 @@ class EntityWithCollision extends Entity
 					// Coin haut-gauche
 				} else if (pxInBottom < pxInTop && pxInBottom < pxInRight && pxInBottom < pxInLeft) {
 					// bas
-					setYPosition(c.box.y + c.box.height - deltaUp + 0.8);
+					entity.setYPosition(c.box.y + c.box.height - deltaUp + 0.8);
 					dy = 0;
 				} else if (pxInTop < pxInRight && pxInTop < pxInLeft) {
 					// haut
-					setYPosition(c.box.y - collisionBox.box.height - deltaUp - 0.8);
-					dy = 0;
+					entity.setYPosition(c.box.y - collisionBox.box.height - deltaUp - 0.8);
+					entity.dy = 0;
 				} else if (pxInRight < pxInLeft) {
 					// droite
-					setXPosition(c.box.x + c.box.width - deltaLeft + 0.8);
-					dx = 0;
+					entity.setXPosition(c.box.x + c.box.width - deltaLeft + 0.8);
+					entity.dx = 0;
 				} else {
 					// gauche
-					setXPosition(c.box.x - collisionBox.box.width - deltaLeft - 0.8);
-					dx = 0;
+					entity.setXPosition(c.box.x - collisionBox.box.width - deltaLeft - 0.8);
+					entity.dx = 0;
 				}
 			} 		
 		}
 		
-		updateEntityPosition();
+		entity.updateEntityPosition();
 	}
 	
 	public function checkGridCollision() {		

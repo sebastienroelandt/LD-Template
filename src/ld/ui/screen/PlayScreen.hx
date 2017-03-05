@@ -45,9 +45,9 @@ class PlayScreen extends Screen
 		//var toggle = new ToggleButtonUI(10, 10, GameController.assets.getBitmapData("t1"), GameController.assets.getBitmapData("t2"));
 		//playlayer.add(toggle);
 		
-		generator = new ParticlesGenerator(playlayer, BezierType.Random, true, true, 5000);
-		generator.getNewParticle = function() {return new BasicParticle(GameController.assets.getStatedAnimationData("bubulle"));}
-		playlayer.add(generator);
+		//generator = new ParticlesGenerator(playlayer, BezierType.Random, true, true, 5000);
+		//generator.getNewParticle = function() {return new BasicParticle(GameController.assets.getStatedAnimationData("bubulle"));}
+		//playlayer.add(generator);
 		
 		this.add(playlayer);
 	}
@@ -60,7 +60,7 @@ class PlayScreen extends Screen
 		debutPoint.x = cell.getVisualPosition().x + 32;
 		debutPoint.y = cell.getVisualPosition().y + 32;
 		
-		var mouseXY = Mouse.getXY();
-		generator.setPosition(mouseXY);
+		//var mouseXY = Mouse.getXY();
+		//generator.setPosition(mouseXY);
 	}
 }

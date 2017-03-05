@@ -2,7 +2,6 @@ package ld.ui.entity;
 
 import lib.sro.data.StatedAnimationData;
 import lib.sro.entity.Entity;
-import lib.sro.entity.EntityWithInterraction;
 import lib.sro.ui.BasicUI;
 import lib.sro.input.Mouse;
 import lib.sro.core.Bresenham;
@@ -31,7 +30,7 @@ class Head extends Body
 		super.beforeUpdate(delta);
 		
 		var previousPos = getPosition();
-		var mousePos = new Point(200, 200);//Mouse.getXY();
+		var mousePos = Mouse.getXY();//new Point(200, 200);
 		var pos = new Point(mousePos.x - 32, mousePos.y - 32);
 		
 		setPosition(pos.x, pos.y);
