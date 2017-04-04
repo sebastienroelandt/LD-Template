@@ -1,7 +1,7 @@
 package lib.sro.entity;
 
 import lib.sro.engine.CollisionBox;
-import lib.sro.engine.CollisionReader;
+import lib.sro.engine.CollisionListener;
 
 /**
  * @author Sebastien roelandt
@@ -21,7 +21,7 @@ interface ICollisionManager
 	public function hasGridCollision(cx:Int, cy:Int):Void;
 	public function hasBoxCollision():Array<CollisionBox>;
 	public function setCollisionReader (collisionBox:CollisionBox):Void;
-	public function addCollideTo(collisionReader:CollisionReader):Void;
-	public function removeCollideTo(collisionReader:CollisionReader):Void;
+	public function addCollideTo(collisionReader:CollisionListener):Void;
+	public function removeCollideTo(collisionReader:CollisionListener):Void;
 	public function removeAllCollideTo():Void;
 }

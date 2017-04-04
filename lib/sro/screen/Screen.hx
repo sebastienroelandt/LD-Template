@@ -1,7 +1,7 @@
 package lib.sro.screen;
 
 import openfl.display.Sprite;
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 
 /**
  * ...

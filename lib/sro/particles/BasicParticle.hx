@@ -1,15 +1,14 @@
 package lib.sro.particles;
 
 import lib.sro.data.StatedAnimationData;
-import lib.sro.entity.Entity;
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 
 /**
  * ...
  * @author Sebastien roelandt
  */
-class BasicParticle extends Entity implements Particle
-{
+class BasicParticle// extends Entity implements Particle
+{/*
 	private var generator 		: ParticlesGenerator;
 	private var time			: Float;
 	private var infinity		: Bool;
@@ -51,6 +50,6 @@ class BasicParticle extends Entity implements Particle
 		
 	public function moveParticule() {
 		dy = -0.1;
-	}
+	}*/
 	
 }

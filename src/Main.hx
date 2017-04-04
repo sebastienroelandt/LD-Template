@@ -3,7 +3,7 @@ package;
 import ld.core.GameManager;
 import lib.sro.core.Bezier;
 import lib.sro.screen.ScreenController;
-import lib.sro.ui.AnimatedSprite;
+import lib.sro.ui.impl.AnimatedSprite;
 import lib.sro.effect.RotationEffect;
 import lib.sro.effect.TransparencyEffect;
 import lib.sro.effect.Effect;

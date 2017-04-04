@@ -1,17 +1,26 @@
 package ld.ui.screen;
 
-import ld.ui.entity.Player;
 import lib.sro.debug.ViusalPoint;
+import lib.sro.engine.CollisionBox;
+import lib.sro.entity.impl.CollisionableEntity;
+import lib.sro.entity.impl.MovableEntity;
+import lib.sro.entity.process.impl.BoxCollisionProcess;
+import lib.sro.entity.process.impl.FrictionProcess;
+import lib.sro.entity.process.impl.GravityProcess;
+import lib.sro.entity.process.impl.GridCollisionProcess;
 import lib.sro.layers.DrawableLayer;
 import lib.sro.particles.BasicParticle;
 import lib.sro.particles.ParticlesGenerator;
 import lib.sro.screen.Screen;
 import lib.sro.screen.ScreenController;
 import lib.sro.core.GameController;
-import lib.sro.ui.ToggleButtonUI;
-import lib.sro.ui.ToggleButtonUI.ToggleButtonState;
+import lib.sro.ui.impl.TiledMapUI;
+import lib.sro.ui.impl.ToggleButtonUI;
+import lib.sro.ui.impl.ToggleButtonUI.ToggleButtonState;
 import lib.sro.input.Mouse;
 import lib.sro.core.Bezier.BezierType;
+import lib.sro.entity.impl.BasicEntity;
+import lib.sro.entity.process.impl.MoveProcess;
 
 
 /**
@@ -24,7 +33,6 @@ class PlayScreen extends Screen
 	
 	private var playlayer 			:	DrawableLayer;
 	private var debutPoint			:	ViusalPoint;
-	private var player 				:	Player;
 	
 	private var generator			:	ParticlesGenerator;
 	
@@ -35,19 +43,20 @@ class PlayScreen extends Screen
 		this.screenController = screenController;
 		this.playlayer = new DrawableLayer();
 		
-		this.player = new Player(GameController.assets.getStatedAnimationData("head"), GameController.assets.getStatedAnimationData("body"));
+		var map = new TiledMapUI(GameController.assets.getTileset("tileset"), [[0, 0, 0, 1], [0, 1, 0, 1], [1, 1, 0, 0], [1, 0, 0, 0]], [1]);
 		
-		playlayer.add(player);
+		var box = new CollisionBox(0, 0, 10, 10);
 		
-		debutPoint = new ViusalPoint(5, 0x00FF00);
-		playlayer.add(debutPoint);
+		var newPlayer = new CollisionableEntity(GameController.assets.getStatedAnimationData("head"));
+		newPlayer.addProcess(new GravityProcess(newPlayer));
+		newPlayer.addProcess(new FrictionProcess(newPlayer));
+		newPlayer.addProcess(new MoveProcess(newPlayer));
+		newPlayer.addProcess(new GridCollisionProcess(newPlayer, 50, 50, map.getCollisionGrid()));
+		newPlayer.addProcess(new BoxCollisionProcess(newPlayer, box));
+		newPlayer.setYy(50);
 		
-		//var toggle = new ToggleButtonUI(10, 10, GameController.assets.getBitmapData("t1"), GameController.assets.getBitmapData("t2"));
-		//playlayer.add(toggle);
-		
-		//generator = new ParticlesGenerator(playlayer, BezierType.Random, true, true, 5000);
-		//generator.getNewParticle = function() {return new BasicParticle(GameController.assets.getStatedAnimationData("bubulle"));}
-		//playlayer.add(generator);
+		playlayer.add(map);
+		playlayer.add(newPlayer);
 		
 		this.add(playlayer);
 	}
@@ -56,9 +65,9 @@ class PlayScreen extends Screen
 	{
 		super.update(delta);
 		
-		var cell = player.getCell(0);
-		debutPoint.x = cell.getVisualPosition().x + 32;
-		debutPoint.y = cell.getVisualPosition().y + 32;
+		//var cell = player.getCell(0);
+		//debutPoint.x = cell.getVisualPosition().x + 32;
+		//debutPoint.y = cell.getVisualPosition().y + 32;
 		
 		//var mouseXY = Mouse.getXY();
 		//generator.setPosition(mouseXY);

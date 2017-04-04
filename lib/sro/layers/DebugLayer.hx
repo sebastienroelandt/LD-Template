@@ -11,7 +11,7 @@ import lib.sro.DefaultConstant;
 import openfl.Lib;
 import openfl.geom.Point;
 import openfl.ui.Keyboard;
-import lib.sro.ui.AnimatedSprite;
+import lib.sro.ui.impl.AnimatedSprite;
 
 /**
  * ...

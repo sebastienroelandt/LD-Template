@@ -1,6 +1,6 @@
 package lib.sro.layers;
 
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 import openfl.display.Sprite;
 
 /**

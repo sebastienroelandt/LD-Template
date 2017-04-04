@@ -1,6 +1,6 @@
 package lib.sro.debug;
 
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 import openfl.display.Sprite;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;

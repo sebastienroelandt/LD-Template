@@ -3,7 +3,7 @@ package lib.sro.particles;
 import lib.sro.core.Bezier.BezierType;
 import lib.sro.core.Bezier.Bezier;
 import lib.sro.core.Bresenham;
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 import openfl.geom.Point;
 
 /**
@@ -12,7 +12,7 @@ import openfl.geom.Point;
  */
 class ParticlesGenerator extends BasicUI
 {
-	private static var TIME_PER_SECOND = 1000;
+	/*private static var TIME_PER_SECOND = 1000;
 	
 	private var autogenerator		: Bool;
 	private var probability			: Float;
@@ -132,5 +132,5 @@ class ParticlesGenerator extends BasicUI
 	public function setPosition(position:Point) {
 		this.x = position.x;
 		this.y = position.y;
-	}
+	}*/
 }

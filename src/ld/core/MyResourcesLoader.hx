@@ -24,7 +24,7 @@ class MyResourcesLoader
 		
 		var head = new StatedAnimationData("head"); 
 		var headTileset = Assets.getBitmapData("img/Head.png"); 
-		head.addLinearFrames("move", ResourcesLoader.splitToBitmapData(headTileset, 0, 0, 64, 64, 4, 1),100); 
+		head.addLinearFrames("move", ResourcesLoader.splitToBitmapData(headTileset, 0, 0, 25, 25, 4, 1),100); 
 		head.setLoop("move", true); 
 		rs.addStatedAnimationData("head", head); 
 		
@@ -32,12 +32,10 @@ class MyResourcesLoader
 		var toggleButtons = ResourcesLoader.splitToBitmapData(toggleButtonBitmapData, 0, 0, 32, 32, 2, 1); 
 		rs.addBitmapData("t1", toggleButtons[0]); 
 		rs.addBitmapData("t2", toggleButtons[1]); 
-	
-		var head = new StatedAnimationData("bubulle"); 
-		var headTileset = Assets.getBitmapData("img/Bubulle.png"); 
-		head.addLinearFrames("move", ResourcesLoader.splitToBitmapData(headTileset, 0, 0, 32, 32, 4, 1),100); 
-		head.setLoop("move", true); 
-		rs.addStatedAnimationData("bubulle", head); 
+		
+		var tileset = Assets.getBitmapData("img/test_gridcollision.png");
+		var tilesetSplited = ResourcesLoader.splitToBitmapData(tileset, 0, 0, 50, 50, 2, 1);
+		rs.addTileset("tileset", tilesetSplited);
 	}
 	
 }

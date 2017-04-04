@@ -1,4 +1,4 @@
-package lib.sro.ui;
+package lib.sro.ui.impl;
 
 import lib.sro.layers.DrawableLayer;
 import lib.sro.data.StatedAnimationData;

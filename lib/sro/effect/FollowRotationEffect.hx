@@ -1,6 +1,6 @@
 package lib.sro.effect;
 
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 import lib.sro.core.Transformation;
 import openfl.geom.Point;
 import lib.sro.entity.Entity;

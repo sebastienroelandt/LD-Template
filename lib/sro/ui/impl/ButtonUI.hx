@@ -1,7 +1,7 @@
-package lib.sro.ui;
+package lib.sro.ui.impl;
 
 import openfl.display.Bitmap;
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 import lib.sro.input.Mouse;
 import openfl.display.BitmapData;
 import openfl.geom.Point;

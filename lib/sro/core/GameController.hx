@@ -45,12 +45,6 @@ class GameController extends ScreenController
 	override public function update() 
 	{
 		super.update();
-		if (Keys.isClick(Keyboard.F2)) {
-			CollisionBox.debugMode = !CollisionBox.debugMode;
-		}
-		if (Keys.isClick(Keyboard.F3)) {
-			CollisionGrid.debugMode = !CollisionGrid.debugMode;
-		}
 		
 		Mouse.reset();
 		Keys.reset();

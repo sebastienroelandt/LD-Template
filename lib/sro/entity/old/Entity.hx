@@ -1,9 +1,9 @@
 package lib.sro.entity;
 
-import lib.sro.ui.AnimatedSprite;
+import lib.sro.ui.impl.AnimatedSprite;
 import lib.sro.engine.*;
 import lib.sro.data.StatedAnimationData;
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 import lib.sro.input.Keys;
 import openfl.display.Bitmap;
 import openfl.geom.Point;

@@ -1,7 +1,7 @@
 package lib.sro.entity;
 
 import lib.sro.data.StatedAnimationData;
-import lib.sro.ui.BasicUI;
+import lib.sro.ui.impl.BasicUI;
 
 /**
  * Entity with collision and interraction with others EntityWithInterraction

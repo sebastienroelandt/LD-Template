@@ -1,6 +1,6 @@
 package lib.sro.entity;
 
-import lib.sro.engine.CollisionReader;
+import lib.sro.engine.CollisionListener;
 import lib.sro.engine.CollisionBox;
 
 /**
@@ -11,8 +11,8 @@ class CollisionManager implements ICollisionManager
 {
 	private var entity				: IEntity;
 	
-	private var collideToGrid		: Array<CollisionReader>;
-	private var collideToBox		: Array<CollisionReader>;
+	private var collideToGrid		: Array<CollisionListener>;
+	private var collideToBox		: Array<CollisionListener>;
 
 	private var collisionBox		: CollisionBox;
 	private var deltaUp 			: Int;
@@ -168,7 +168,7 @@ class CollisionManager implements ICollisionManager
 		}
 		// Down
 		for (i in 0...(widthInTile + 1)) {
-			if (hasGridCollision(cx + i, cy + 1 + heigthInTile) && yr >= 1 - restHeigth) {
+			if (hasGridCollision(cx + i, cy + 1 + heigthInTile) && yr > 1 - restHeigth) {
 				dy = 0;
 				yr = 1 - restHeigth;
 			}
@@ -207,7 +207,7 @@ class CollisionManager implements ICollisionManager
 		this.collisionBox = collisionBox;
 	}
 
-	public function addCollideTo(collisionReader:CollisionReader) 
+	public function addCollideTo(collisionReader:CollisionListener) 
 	{
 		if (CollisionType.Grid.equals(collisionReader.getType())) 
 		{
@@ -229,7 +229,7 @@ class CollisionManager implements ICollisionManager
 		}
 	}
 	
-	public function removeCollideTo(collisionReader:CollisionReader) 
+	public function removeCollideTo(collisionReader:CollisionListener) 
 	{
 		collideToGrid.remove(collisionReader);
 		collideToBox.remove(collisionReader);

@@ -1,4 +1,4 @@
-package lib.sro.ui;
+package lib.sro.ui.impl;
 
 import openfl.display.Sprite;
 import Sys;
