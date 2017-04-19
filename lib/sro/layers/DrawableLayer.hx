@@ -1,5 +1,6 @@
 package lib.sro.layers;
 
+import lib.sro.entity.constraint.IBasicEntity;
 import lib.sro.ui.impl.BasicUI;
 import openfl.display.Sprite;
 
