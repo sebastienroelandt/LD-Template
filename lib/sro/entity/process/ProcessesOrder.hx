@@ -10,16 +10,18 @@ import lib.sro.entity.process.constraint.IProcess;
 class ProcessesOrder
 {
 	// Deplacements
-	public static var MOVE_PRIORITY				=  1;
-	public static var GRAVITY_PRIORITY			=  2;
-	public static var FRICTION_PRIORITY			=  3;
+	public static var MOVE_PRIORITY						=  1;
+	public static var GRAVITY_PRIORITY					=  2;
+	public static var FRICTION_PRIORITY					=  3;
 	
 	//Contre Deplacement
-	public static var BOX_COLLISION_PRIORITY	= 11;
-	public static var GRID_COLLISION_PRIORITY	= 12;
+	public static var BOX_COLLISION_PRIORITY			= 11;
+	public static var GRID_BOX_COLLISION_PRIORITY		= 12;
+	public static var POLYGON_COLLISION_PRIORITY		= 13;
+	public static var GRID_POLYGON_COLLISION_PRIORITY	= 14;
 	
 	//Visual effect
-	public static var ROTATION_PRIORITY			= 21;
+	public static var ROTATION_PRIORITY					= 21;
 
 	public static function sort(list:Array<IProcess>):Array<IProcess> {
 		ArraySort.sort(list,
