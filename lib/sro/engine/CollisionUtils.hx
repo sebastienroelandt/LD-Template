@@ -94,7 +94,62 @@ class CollisionUtils
 	}
 	
 	public static function polygonCollision(entity:ICollisionableEntity, polygon:CollisionPolygon) : CollisionInformation {
-		return null;
+		var information = new CollisionInformation();
+		
+		if (isEntityInPolygon(entity, polygon)) {
+			information.setIsCollision(true);
+		}
+		
+		return information;
 	}
 	
+	public static function isEntityInPolygon(entity:ICollisionableEntity, polygon:CollisionPolygon) : Bool {
+		for (point in polygon.getPoints()) {
+			if (isPointInEntity(entity, point)) {
+				return true;
+			}
+		}
+		
+		if (isEntityPointInPolygon(polygon, new Point(entity.getXx() + entity.getDeltaLeft()	, entity.getYy() + entity.getDeltaUp())) 
+			|| 		isEntityPointInPolygon(polygon, new Point(entity.getXx() + entity.getWidth() - entity.getDeltaRight()	, entity.getYy() + entity.getDeltaUp())) 
+			|| 		isEntityPointInPolygon(polygon, new Point(entity.getXx() + entity.getDeltaLeft()	, entity.getYy() + entity.getHeight() - entity.getDeltaDown())) 
+			|| 		isEntityPointInPolygon(polygon, new Point(entity.getXx() + entity.getWidth() - entity.getDeltaRight()	, entity.getYy() + entity.getHeight() - entity.getDeltaDown())))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public static function isEntityPointInPolygon(polygon:CollisionPolygon, point:Point) :Bool {
+		for (i in 0...(polygon.getPoints().length)) {
+			var pointAX = polygon.getPoints()[i].x;
+			var pointAY = polygon.getPoints()[i].y;
+			
+			var j = i + 1;
+			if (j == polygon.getPoints().length) {
+				j = 0;
+			}
+			
+			var pointBX = polygon.getPoints()[j].x;
+			var pointBY = polygon.getPoints()[j].y;
+			
+			var pointPx = point.x;
+			var pointPy = point.y;
+			
+			var vecteurDX = pointBX - pointAX;
+			var vecteurDY = pointBY - pointAY;
+			var vecteurTX = pointPx - pointAX;
+			var vecteurTY = pointPy - pointAY;
+			
+			var d = vecteurDX * vecteurTY - vecteurDY * vecteurTX;
+			
+			if (d > 0) {
+				return false;  // un point à droite -> Collision
+			}
+		}
+		
+		return true;
+	}
+
 }
