@@ -6,9 +6,7 @@ import openfl.display.Sprite;
 /**
  * @author Sebastien roelandt
  */
-interface ISprite extends IBitmapDrawable
+interface ISprite
 {
 	public function getSprite():Sprite;
-	public function getAlpha():Float ;
-	public function setAlpha(alpha:Float):Void;
 }

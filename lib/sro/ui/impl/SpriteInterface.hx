@@ -22,12 +22,4 @@ class SpriteInterface extends Sprite implements ISprite
 	public function getSprite():Sprite {
 		return this;
 	}
-	
-	public function getAlpha():Float {
-		return this.alpha;
-	}
-	
-	public function setAlpha(alpha:Float) {
-		this.alpha = alpha;
-	}
 }

@@ -25,7 +25,7 @@ class TransparencyEffectProcess extends AbstractEffetProcess implements IProcess
 	override private function update(value:Float, diff:Float) {
 		transparency = value;
 		
-		entity.setAlpha(transparency);
+		entity.getSprite().alpha = transparency;
 	}
 	
 	/* INTERFACE lib.sro.entity.process.constraint.IProcess */
