@@ -1,6 +1,6 @@
 package ld.ui.screen;
 
-import lib.sro.debug.ViusalPoint;
+import lib.sro.debug.VisualPoint;
 import lib.sro.engine.CollisionBox;
 import lib.sro.engine.CollisionPolygon;
 import lib.sro.entity.constraint.IBasicEntity;
@@ -11,7 +11,10 @@ import lib.sro.entity.process.impl.BoxCollisionProcess;
 import lib.sro.entity.process.impl.FrictionProcess;
 import lib.sro.entity.process.impl.GravityProcess;
 import lib.sro.entity.process.impl.GridBoxCollisionProcess;
+import lib.sro.entity.process.impl.LookAtRotationEffectProcess;
 import lib.sro.entity.process.impl.PolygonCollisionProcess;
+import lib.sro.entity.process.impl.RotationEffectProcess;
+import lib.sro.entity.process.impl.TransparencyEffectProcess;
 import lib.sro.layers.CameraLayer;
 import lib.sro.layers.DrawableLayer;
 import lib.sro.particles.BasicParticle;
@@ -38,7 +41,7 @@ class PlayScreen extends Screen
 	private var screenController 	: 	ScreenController;
 	
 	private var playlayer 			:	CameraLayer;
-	private var debutPoint			:	ViusalPoint;
+	private var debutPoint			:	VisualPoint;
 	
 	private var newPlayer			: 	ICollisionableEntity;
 	
@@ -65,6 +68,10 @@ class PlayScreen extends Screen
 		//newPlayer.addProcess(new GridBoxCollisionProcess(newPlayer, 50, 50, map.getCollisionGrid()));
 		//newPlayer.addProcess(new BoxCollisionProcess(newPlayer, box));
 		newPlayer.addProcess(new PolygonCollisionProcess(newPlayer, collisionPolygon));
+		//newPlayer.addProcess(new TransparencyEffectProcess(newPlayer, 1000));
+		//newPlayer.addProcess(new RotationEffectProcess(newPlayer, 10000));
+		newPlayer.addProcess(new LookAtRotationEffectProcess(newPlayer));
+		
 		newPlayer.setYy(50);
 		newPlayer.setXx(50);
 		

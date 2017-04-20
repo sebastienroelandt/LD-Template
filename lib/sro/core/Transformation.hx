@@ -1,5 +1,6 @@
 package lib.sro.core;
 
+import lib.sro.entity.constraint.IBasicEntity;
 import openfl.display.Sprite;
 import openfl.geom.Matrix;
 import openfl.geom.Point;
@@ -11,21 +12,17 @@ import openfl.geom.Point;
 class Transformation
 {
 
-	public static function rotateRad(target:Sprite, pivot:Point, angle:Float, ?initialCoord:Point = null) 
+	public static function rotateRad(entity:IBasicEntity, pivot:Point, angleInRadians:Float) 
 	{
 		//Move to translation point
 		var matrix:Matrix = new Matrix();
-		if (initialCoord == null) {
-			initialCoord = new Point(200, 200);
-		}
-		
 		
 		matrix.tx -= pivot.x;
 		matrix.ty -= pivot.y;
 
 		//Calculate 
-		var sin = Math.sin(angle);
-		var cos = Math.cos(angle);
+		var sin = Math.sin(angleInRadians);
+		var cos = Math.cos(angleInRadians);
 		var a = matrix.a;
 		var b = matrix.b;
 		var c = matrix.c;
@@ -40,16 +37,16 @@ class Transformation
 		matrix.ty = tx*sin + ty*cos;
 
 		//Restore the translation
-		matrix.tx += pivot.x + initialCoord.x;
-		matrix.ty += pivot.y + initialCoord.y;
+		matrix.tx += pivot.x + entity.getXx();
+		matrix.ty += pivot.y + entity.getYy();
 
-		target.transform.matrix = matrix;	
+		entity.getSprite().transform.matrix = matrix;	
 
 	}
 	
-	public static function rotateDegree(target:Sprite, pivot:Point, angle:Float, ?initialCoord:Point = null) 
+	public static function rotateDegree(entity:IBasicEntity, pivot:Point, angleInDegrees:Float) 
 	{
-		rotateRad(target, pivot, angle * Math.PI / 180, initialCoord);
+		rotateRad(entity, pivot, angleInDegrees * Math.PI / 180);
 	}
 	
 }

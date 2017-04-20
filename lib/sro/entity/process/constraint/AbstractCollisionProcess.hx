@@ -1,7 +1,7 @@
 package lib.sro.entity.process.constraint;
 
 import lib.sro.entity.constraint.ICollisionableEntity;
-import lib.sro.entity.process.constraint.ICollisionListener;
+import lib.sro.entity.process.listener.ICollisionListener;
 
 /**
  * ...

@@ -1,4 +1,4 @@
-package;
+package lib.sro.entity.process.impl;
 
 import lib.sro.entity.process.constraint.IProcess;
 
@@ -8,10 +8,9 @@ import lib.sro.entity.process.constraint.IProcess;
  */
 class InterractionProcess implements IProcess
 {
-
 	public function new() 
 	{
-		
+
 	}
 	
 	public function beforeEntityUpdate(delta:Float):Void 

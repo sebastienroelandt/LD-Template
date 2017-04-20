@@ -10,17 +10,20 @@ import lib.sro.layers.DebugLayer;
  * ...
  * @author Sebastien roelandt
  */
-class ViusalPoint extends BasicUI
+class VisualPoint extends BasicUI
 {
 	var follow 		: BasicUI;
 	
-	public function new(?size = 1, ?color = 0xFF0000) 
+	public function new(x:Float, y:Float, ?size = 1, ?color = 0xFF0000) 
 	{
 		super();
 		
 		this.graphics.beginFill(color, 1);
 		this.graphics.drawRect(0, 0, size, size);
 		this.graphics.endFill();
+		
+		this.x = point.x;
+		this.y = point.y;
 	}
 	
 	public function setPosition(point:Point) {
