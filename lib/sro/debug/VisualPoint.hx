@@ -14,7 +14,7 @@ class VisualPoint extends BasicUI
 {
 	var follow 		: BasicUI;
 	
-	public function new(x:Float, y:Float, ?size = 1, ?color = 0xFF0000) 
+	public function new(position:Point, ?size = 1, ?color = 0xFF0000) 
 	{
 		super();
 		
@@ -22,13 +22,13 @@ class VisualPoint extends BasicUI
 		this.graphics.drawRect(0, 0, size, size);
 		this.graphics.endFill();
 		
-		this.x = point.x;
-		this.y = point.y;
+		this.x = position.x;
+		this.y = position.y;
 	}
 	
-	public function setPosition(point:Point) {
-		this.x = point.x;
-		this.y = point.y;
+	public function setPosition(position:Point) {
+		this.x = position.x;
+		this.y = position.y;
 	}
 	
 	override public function update(delta:Float) 

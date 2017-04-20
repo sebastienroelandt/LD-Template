@@ -1,6 +1,7 @@
 package ld.ui.screen;
 
 import lib.sro.debug.VisualPoint;
+import lib.sro.debug.VisualPolygon;
 import lib.sro.engine.CollisionBox;
 import lib.sro.engine.CollisionPolygon;
 import lib.sro.entity.constraint.IBasicEntity;
@@ -58,7 +59,7 @@ class PlayScreen extends Screen
 		
 		//var box = new CollisionBox(0, 0, 10, 10);
 		
-		var polygon = [new Point(0.1, 0.1), new Point(0.2, 10.1), new Point(10.2, 10.3), new Point(10.4, 0.3)];
+		var polygon = [new Point(0.1, 0.1), new Point(0.2, 110.1), new Point(210.2, 210.3), new Point(10.4, 0.3)];
 		var collisionPolygon = new CollisionPolygon(polygon);
 		
 		newPlayer = new CollisionableEntity(GameController.assets.getStatedAnimationData("head"));
@@ -77,6 +78,8 @@ class PlayScreen extends Screen
 		
 		playlayer.add(map);
 		playlayer.add(newPlayer);
+		
+		playlayer.add(new VisualPolygon(polygon));
 		
 		this.add(playlayer);
 	}
