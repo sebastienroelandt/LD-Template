@@ -9,7 +9,7 @@ import Sys;
  * ...
  * @author Sebastien roelandt
  */
-class BasicUI extends Sprite implements IBasicUI
+class BasicUI extends SpriteInterface implements IBasicUI
 {
 	private var _parent:IBasicUI;
 	private var _childs:List<IBasicUI>;
@@ -25,7 +25,7 @@ class BasicUI extends Sprite implements IBasicUI
 	}
 	
 	public function add(child:IBasicUI) {
-		this.addChild(child.getDisplayObject());
+		this.addChild(child.getSprite());
 		_childs.add(child);
 	}
 	
@@ -57,9 +57,5 @@ class BasicUI extends Sprite implements IBasicUI
 			}
 			this.pause = pause;
 		}
-	}
-	
-	public function getDisplayObject() : DisplayObject {
-		return this;
 	}
 }

@@ -3,6 +3,7 @@ package lib.sro.entity.constraint;
 import lib.sro.data.StatedAnimationData;
 import lib.sro.entity.process.constraint.IProcess;
 import lib.sro.entity.process.ProcessesOrder;
+import lib.sro.ui.constraint.IBasicUI;
 import lib.sro.ui.impl.AnimatedSprite;
 import lib.sro.ui.impl.BasicUI;
 
@@ -10,12 +11,12 @@ import lib.sro.ui.impl.BasicUI;
  * ...
  * @author Sebastien roelandt
  */
-class AbstractEntity extends AnimatedSprite implements IAbstractEntity
+class AbstractEntity extends BasicUI implements IBasicUI
 {
 	private var processes		: Array<IProcess>;
 	
-	public function new (statedAnimationData:StatedAnimationData, ?parent:BasicUI = null) {
-		super(statedAnimationData, parent);
+	public function new (?parent:BasicUI = null) {
+		super(parent);
 		processes = new Array<IProcess>();
 	}
 	

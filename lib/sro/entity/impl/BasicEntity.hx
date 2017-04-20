@@ -3,13 +3,14 @@ package lib.sro.entity.impl;
 import lib.sro.data.StatedAnimationData;
 import lib.sro.entity.constraint.AbstractEntity;
 import lib.sro.entity.constraint.IBasicEntity;
+import lib.sro.ui.impl.AnimatedSprite;
 import lib.sro.ui.impl.BasicUI;
 
 /**
  * ...
  * @author Sebastien roelandt
  */
-class BasicEntity extends AbstractEntity implements IBasicEntity
+class BasicEntity extends AnimatedSprite implements IBasicEntity
 {
 	//Real position
 	private var xx 				: Float;

@@ -1,8 +1,10 @@
 package lib.sro.ui.impl;
 
+import lib.sro.entity.constraint.AbstractEntity;
 import lib.sro.layers.DrawableLayer;
 import lib.sro.data.StatedAnimationData;
 import lib.sro.data.AnimationData;
+import lib.sro.ui.constraint.IAnimatedSprite;
 import openfl.display.Bitmap;
 import openfl.display.Sprite;
 
@@ -10,7 +12,7 @@ import openfl.display.Sprite;
  * ...
  * @author Sebastien roelandt
  */
-class AnimatedSprite extends BasicUI
+class AnimatedSprite extends AbstractEntity implements IAnimatedSprite
 {
 	private var statedAnimationData:StatedAnimationData;
 	private var currentAnimationData:AnimationData;
@@ -51,6 +53,8 @@ class AnimatedSprite extends BasicUI
 	}
 	
 	public override function update(delta:Float) {
+		super.update(delta);
+		
 		if (!animationFinish) {
 			timeElapsed += delta;
 			var loopTime = currentAnimationData.getLoopTime();
