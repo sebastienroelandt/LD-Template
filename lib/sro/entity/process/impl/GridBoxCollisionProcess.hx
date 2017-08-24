@@ -44,8 +44,8 @@ class GridBoxCollisionProcess extends AbstractCollisionProcess implements IProce
 		
 		this.tileHeight = tileHeight;
 		this.tileWidth = tileWidth;
-		this.xTiles = collisionMap[0].length;
-		this.yTiles = collisionMap.length;
+		this.xTiles = collisionMap.length;
+		this.yTiles = collisionMap[0].length;
 		this.collisionMap = collisionMap;
 		this.isBlocking = isBlocking;
 		

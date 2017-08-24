@@ -21,30 +21,6 @@
     <class path="E:\Installation\HaxeToolkit\haxe\lib\actuate\1,8,6" />
     <class path="src" />
     <class path="bin\flash\haxe" />
-    <class path="lib\sro\core" />
-    <class path="lib\sro\effect" />
-    <class path="lib\sro\engine" />
-    <class path="lib\sro\debug" />
-    <class path="lib\sro\data" />
-    <class path="lib\sro\entity\constraint" />
-    <class path="lib\sro\entity\impl" />
-    <class path="lib\sro\entity\process\constraint" />
-    <class path="lib\sro\entity\process\impl" />
-    <class path="lib\sro\entity\process\reader" />
-    <class path="lib\sro\info" />
-    <class path="lib\sro\input" />
-    <class path="lib\sro\layers" />
-    <class path="lib\sro\old" />
-    <class path="lib\sro\particles" />
-    <class path="lib\sro\screen" />
-    <class path="lib\sro\sound" />
-    <class path="lib\sro\ui\constraint" />
-    <class path="lib\sro\ui\impl" />
-    <class path="lib\sro\entity\process\listener" />
-    <class path="lib\sro\entity\process" />
-    <class path="lib\sro\entity" />
-    <class path="lib\sro" />
-    <class path="lib" />
   </classpaths>
   <!-- Build options -->
   <build>

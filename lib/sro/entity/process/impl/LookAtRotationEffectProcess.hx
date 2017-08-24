@@ -40,7 +40,7 @@ class LookAtRotationEffectProcess implements IProcess
 		}
 	}
 	
-	private function getRotation():Float {
+	public function getRotation():Float {
 		var center = new Point(entity.getXx() + centerPoint.x, entity.getYy() + centerPoint.y);
 		var up = new Point(center.x, center.y - 20);
 		var other = getLookAtPoint();
@@ -65,8 +65,7 @@ class LookAtRotationEffectProcess implements IProcess
 	
 	public function getLookAtPoint():Point
 	{
-		//return this.lookAtPoint;
-		return Mouse.getXY();
+		return this.lookAtPoint;
 	}
 	
 	public function setLookAtPoint(lookAtPoint:Point) 
